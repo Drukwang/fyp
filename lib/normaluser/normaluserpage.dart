@@ -1,44 +1,107 @@
+import 'package:FYPApp/main.dart';
 import 'package:flutter/material.dart';
-import 'package:FYPApp/normaluser/pofile.dart';
+import 'package:FYPApp/normaluser/updatepofile.dart';
+import 'package:FYPApp/normaluser/viewprofile.dart';
+import 'package:barcode_scan/barcode_scan.dart';
+import 'password.dart';
+//import 'requestupdate.dart';
+import 'contactus.dart';
 
 class NormalUser extends StatefulWidget {
+  NormalUser({Key key}) : super(key: key);
   @override
   _NormalUserState createState() => _NormalUserState();
 }
 
+
+String qrData = "No data found!";
+var data;
+bool hasdata = false;
 class _NormalUserState extends State<NormalUser> {
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        
         backgroundColor: Colors.blueAccent,
         title: Text(
           'Student Activity Record',
           style: TextStyle(
             fontFamily: 'PTSerif',
+            fontSize: 24,
           ),
         ),
         centerTitle: true,
+      ),
+       drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Column(
+                children: <Widget>[
+                  CircleAvatar(
+                    backgroundImage: AssetImage('assets/cstlogo.png'),
+                    radius: 60,
+                  ),
+                  Divider(
+
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 30, 0, 0),
+                    child: ListTile(
+                      leading: Icon(Icons.person),
+                      title: Text('About Us',
+                          style: TextStyle(
+                            fontFamily: 'PTSerif',
+                            fontSize: 20,
+                          )),
+                          onTap: (){
+                            Navigator.push(
+                              context,  MaterialPageRoute(builder: (context) => ContactUs()),);
+                          },
+                    ),
+                  ),
+                  Divider(),
+                   Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                    child: ListTile(
+                      leading: Icon(Icons.arrow_back),
+                      title: Text('Log Out',
+                          style: TextStyle(
+                            fontFamily: 'PTSerif',
+                            fontSize: 20,
+                          )),
+                          onTap: (){
+                            Navigator.push(
+                              context,  MaterialPageRoute(builder: (context) => HomePage()),);
+                          },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
       body: Center(
         child: Form(
            key: formKey,
           child: Column(
-            //mainAxisAlignment: MainAxisAlignment.values[5],
-            
+            //mainAxisAlignment: MainAxisAlignment.values[5],            
             children: <Widget>[
               Container(
                 margin: EdgeInsets.only(top: 120),
-                height: 300,
+                height: 400,
                 width: 300,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     SizedBox(
-                      width: 180,
-                      height: 30,
-                                child: RaisedButton(
+                      width: 250,
+                      height: 50,
+                      child: RaisedButton(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(7),
                         ),
@@ -48,7 +111,7 @@ class _NormalUserState extends State<NormalUser> {
                           if (formKey.currentState.validate()) {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => ViewProfile()),
+                              MaterialPageRoute(builder: (context) => ViewPofile()),
                             );
                           }
                         },
@@ -56,16 +119,16 @@ class _NormalUserState extends State<NormalUser> {
                           'View Profile',
                           style: TextStyle(
                             fontFamily: 'PTSerif',
+                            fontSize: 20,
                           ),
                         ),
                       ),
                     ),
                   
               SizedBox(
-                width: 180,
-                height: 30,
-                          child: RaisedButton(
-                  
+                width: 250,
+                height: 50,
+                child: RaisedButton(                  
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(7),
                   ),
@@ -83,14 +146,16 @@ class _NormalUserState extends State<NormalUser> {
                     'Update Profile',
                     style: TextStyle(
                       fontFamily: 'PTSerif',
+                      fontSize: 20,
                     ),
                   ),
                 ),
               ),
+              
               SizedBox(
-                width: 180,
-                height: 30,
-                          child: RaisedButton(
+                width: 250,
+                height: 50,
+                child: RaisedButton(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(7),
                   ),
@@ -100,32 +165,7 @@ class _NormalUserState extends State<NormalUser> {
                     if (formKey.currentState.validate()) {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => RequestUpdate()),
-                      );
-                    }
-                  },
-                  child: Text(
-                    'Request Update',
-                    style: TextStyle(
-                      fontFamily: 'PTSerif',
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 180,
-                height: 30,
-                          child: RaisedButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(7),
-                  ),
-                  padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                  color: Colors.lightBlueAccent,
-                  onPressed: () {
-                    if (formKey.currentState.validate()) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ChangePassword()),
+                        MaterialPageRoute(builder: (context) => PasswordUpdate()),
                       );
                     }
                   },
@@ -133,6 +173,7 @@ class _NormalUserState extends State<NormalUser> {
                     'Change Password',
                     style: TextStyle(
                       fontFamily: 'PTSerif',
+                      fontSize: 20,
                     ),
                   ),
                 ),
@@ -140,10 +181,31 @@ class _NormalUserState extends State<NormalUser> {
               ],
                 ),
               ),
-              // IconButton(                          
-              //   icon: Icon(Icons.query_builder),
-              //   onPressed: () => Scanner(),
-              // ),           
+              
+              InkWell(
+                child: Container(               
+                    child: Image.asset('assets/scan-image.png',
+                      fit: BoxFit.cover,
+                      height: 70,
+                      width: 70,
+                    ),
+                                    
+                  ),
+                onTap: () async {
+                    var options = ScanOptions(
+                      autoEnableFlash: false,
+                    );
+                    var data = await BarcodeScanner.scan(options: options);
+                    setState(() {
+                      qrData = data.rawContent.toString();
+                      hasdata = true;
+                    });
+                  },
+              ),
+                // onPressed: () async{
+                //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => QRScanPage()));
+                // },         
+                      
             ],
           ),
         ),
@@ -151,3 +213,9 @@ class _NormalUserState extends State<NormalUser> {
     );
   }
 }
+// onPressed: () async {
+//   String codeScanner =await BarcodeScanner.scan();
+//   setState((){
+//     qrCodeResult = codeScanner;
+//   });
+// },

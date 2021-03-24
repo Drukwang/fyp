@@ -1,12 +1,13 @@
-import 'package:FYPApp/normaluser/normaluserpage.dart';
-//import 'package:FYPApp/privilegeuser/privilegepage.dart';
+//import 'package:FYPApp/normaluser/normaluserpage.dart';
+import 'package:FYPApp/privilegeuser/privilegepage.dart';
 import 'package:flutter/material.dart';
-
 
 void main() {
   runApp(MaterialApp(
-    home: HomePage(),
+    debugShowCheckedModeBanner: false,
+    home: MyApp(),
   ));
+ 
 }
 
 class MyApp extends StatefulWidget {
@@ -48,14 +49,15 @@ class _MyAppState extends State<MyApp> {
           ),
           SizedBox(
             width: 20.0,
+            
           ),
           Text(
             'Student Activity Record System',
             style: TextStyle(
-              //fontFamily: ,
-              fontSize: 20,
+              fontFamily: 'PTSerif',
+              fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Colors.amber[800],
+              color: Colors.black,
             ),
           ),
         ],
@@ -67,13 +69,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Student Activity Record System'),
-      //   centerTitle: true,
-      //   backgroundColor: Colors.blue[600],
-      // ),
       body: Container(
-        margin: EdgeInsets.fromLTRB(0.0, 90.0, 0.0, 0.0),
+        margin: EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 0.0),
         padding: EdgeInsets.all(10),
         alignment: Alignment.center,
         child: Column(
@@ -81,35 +78,50 @@ class HomePage extends StatelessWidget {
           children: <Widget>[
             Image.asset(
               'assets/cstlogo.png',
-              width: 170,
-              height: 170,
+              width: 180,
+              height: 180,
             ),
             Container(
               margin: EdgeInsets.fromLTRB(0.0, 35.0, 0.0, 35),
               child: Text('Log in',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontSize: 30,
+                  fontFamily: 'PTSerif',
                 ),
               ),
-            ),  
-            //Container(
-              //child: 
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'UserID',
+            ),              
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      labelText: ' Email ID',
+                      labelStyle: TextStyle(
+                        fontFamily: 'PTSerif',
+                        fontSize: 20
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            //),
-            //Container(
-              //child: 
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Password',
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      labelStyle: TextStyle(
+                        fontFamily: 'PTSerif',
+                        fontSize: 20
+                      )
+                    ),
+                  ),
                 ),
               ),
-            //),
             Container(
+              height: 50,
+              width: 100,
               margin: EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
               child: RaisedButton(
                 shape: RoundedRectangleBorder(
@@ -121,13 +133,16 @@ class HomePage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => NormalUser(),
+                      builder: (context) => PrivilegeActivity(),
                     ),
                   );
                 },
                 child: Text(
-                  'log in',
+                  'log In',
                   style: TextStyle(
+                    fontSize: 20,
+                    fontFamily: 'PTSerif',
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
