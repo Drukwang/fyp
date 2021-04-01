@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:FYPApp/main.dart';
-import 'package:FYPApp/privilegeuser/manualupdate.dart';
-import 'package:FYPApp/privilegeuser/qrgenerated.dart';
+import 'package:fyp_app/main.dart';
+import 'package:fyp_app/privilegeuser/manualupdate.dart';
+import 'package:fyp_app/privilegeuser/qrgenerated.dart';
 class PrivilegeActivity extends StatefulWidget {
   PrivilegeActivity({Key key}) : super(key: key);
   @override
@@ -167,7 +167,6 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                       }).toList(),
                     ),
              ),
-                
               // Divider(
               //   color: Colors.black54,
               // ),
@@ -248,34 +247,47 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(7),
-                      ),
-                      padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                      color: Colors.lightBlueAccent,
-                      onPressed: () {
-                        print(mycontroller.text);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => QRGenerated(mycontroller.text)));
-                      },
-                      child: Text(
-                        'Generate QR',
-                        style: TextStyle(
-                          fontFamily: 'PTSerif',
-                          fontSize: 20,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(5,0,5,0),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              side: BorderSide(color: Colors.black)
+                            )
+                          ),                        
+                        ),
+                        onPressed: () {
+                          print(mycontroller.text);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => QRGenerated(mycontroller.text)));
+                        },
+                        child: Text(
+                          'Generate QR',
+                          style: TextStyle(
+                            fontFamily: 'PTSerif',
+                            fontSize: 20,
+                          ),
                         ),
                       ),
                     ),
-                    RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(7),
-                      ),
-                      padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                      color: Colors.lightBlueAccent,
-                      onPressed: () {
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(5,0,5,0),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              side: BorderSide(color: Colors.black)
+                            )
+                          ),                        
+                        ),
+                        onPressed: () {
                          Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -287,6 +299,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                           fontFamily: 'PTSerif',
                           fontSize: 20,
                         ),
+                      ),
                       ),
                     ),
                   ],

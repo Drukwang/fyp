@@ -67,12 +67,15 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
              child: Row(
                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                children: <Widget> [
-                 RaisedButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                  color: Colors.lightBlueAccent,
+                 ElevatedButton(
+                   style: ButtonStyle(
+                    //  shape: RoundedRectangleBorder(
+                    //     borderRadius: BorderRadius.circular(10),
+                    //  ),
+                    //  padding: MaterialStateProperty.all(5),
+                    //  backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
+                   ), 
+                  
                   onPressed: () {
                     
                   },
@@ -85,25 +88,25 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
                   ),
                 ),
              
-                RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(7),
-                    ),
-                    padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    color: Colors.lightBlueAccent,
-                    onPressed: () {
-                      Navigator.pop(
-                        context,
-                      );
-                    },
-                    child: Text(
-                      'Cancel',
-                      style: TextStyle(
-                        fontFamily: 'PTSerif',
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
+                // RaisedButton(
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(7),
+                //     ),
+                //     padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                //     color: Colors.lightBlueAccent,
+                //     onPressed: () {
+                //       Navigator.pop(
+                //         context,
+                //       );
+                //     },
+                //     child: Text(
+                //       'Cancel',
+                //       style: TextStyle(
+                //         fontFamily: 'PTSerif',
+                //         fontSize: 20,
+                //       ),
+                //     ),
+                //   ),
                ],                       
               ),
            ),   

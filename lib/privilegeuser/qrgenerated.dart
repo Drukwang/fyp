@@ -46,13 +46,19 @@ class _QRGeneratedState extends State<QRGenerated> {
            Row(
              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
              children: [
-               RaisedButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(7),
-                          ),
-                          padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                          color: Colors.lightBlueAccent,
-                          onPressed: () {                           
+               Padding(
+                      padding: const EdgeInsets.fromLTRB(5,0,5,0),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              side: BorderSide(color: Colors.black)
+                            )
+                          ),                        
+                        ),
+                        onPressed: () {                           
                             // if (formKey.currentState.validate()) {
                             //   Navigator.push(
                             //     context,
@@ -67,31 +73,38 @@ class _QRGeneratedState extends State<QRGenerated> {
                               fontSize: 20,
                             ),
                           ),
-                        ),
-             
-                    RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(7),
-                      ),
-                      padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                      color: Colors.lightBlueAccent,
-                      onPressed: () {
-                        // if (formKey.currentState.validate()) {
-                        //   Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(builder: (context) => QRPage()),
-                        //   );
-                        // }
-                      },
-                      child: Text(
-                        'Share',
-                        style: TextStyle(
-                          fontFamily: 'PTSerif',
-                          fontSize: 20,
-                        ),
                       ),
                     ),
-                    ],
+                    Padding(
+                    padding: const EdgeInsets.fromLTRB(5,0,5,0),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            side: BorderSide(color: Colors.black)
+                          )
+                        ),                        
+                      ),
+                      onPressed: () {
+                      // if (formKey.currentState.validate()) {
+                      //   Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(builder: (context) => QRPage()),
+                      //   );
+                      // }
+                    },
+                    child: Text(
+                      'Share',
+                      style: TextStyle(
+                        fontFamily: 'PTSerif',
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ),                   
+              ],
            ),
           ],
 

@@ -1,10 +1,9 @@
-import 'package:FYPApp/main.dart';
+import 'package:fyp_app/main.dart';
 import 'package:flutter/material.dart';
-import 'package:FYPApp/normaluser/updatepofile.dart';
-import 'package:FYPApp/normaluser/viewprofile.dart';
+import 'package:fyp_app/normaluser/updatepofile.dart';
+import 'package:fyp_app/normaluser/viewprofile.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'password.dart';
-//import 'requestupdate.dart';
 import 'contactus.dart';
 
 class NormalUser extends StatefulWidget {
@@ -101,84 +100,103 @@ class _NormalUserState extends State<NormalUser> {
                     SizedBox(
                       width: 250,
                       height: 50,
-                      child: RaisedButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(7),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(5,0,5,0),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                side: BorderSide(color: Colors.black)
+                              )
+                            ),                        
+                          ),
+                          onPressed: () {
+                            if (formKey.currentState.validate()) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => ViewPofile()),
+                              );
+                            }
+                          },
+                          child: Text(
+                            'View Profile',
+                            style: TextStyle(
+                              fontFamily: 'PTSerif',
+                              fontSize: 20,
+                            ),
+                          ),
                         ),
-                        padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                        color: Colors.lightBlueAccent,
+                      ), 
+                    ),
+                    SizedBox(
+                    width: 250,
+                    height: 50,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(5,0,5,0),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              side: BorderSide(color: Colors.black)
+                            )
+                          ),                        
+                        ),
                         onPressed: () {
                           if (formKey.currentState.validate()) {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => ViewPofile()),
+                              MaterialPageRoute(builder: (context) => UpdatePofile()),
                             );
                           }
                         },
                         child: Text(
-                          'View Profile',
+                          'Update Profile',
                           style: TextStyle(
                             fontFamily: 'PTSerif',
                             fontSize: 20,
                           ),
                         ),
                       ),
+                    ), 
+                  ),
+                  SizedBox(
+                      width: 250,
+                      height: 50,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(5,0,5,0),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                side: BorderSide(color: Colors.black)
+                              )
+                            ),                        
+                          ),
+                          onPressed: () {
+                            if (formKey.currentState.validate()) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => PasswordUpdate()),
+                              );
+                            }
+                          },
+                          child: Text(
+                            'Change Password',
+                            style: TextStyle(
+                              fontFamily: 'PTSerif',
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ), 
                     ),
-                  
-              SizedBox(
-                width: 250,
-                height: 50,
-                child: RaisedButton(                  
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(7),
-                  ),
-                  padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                  color: Colors.lightBlueAccent,
-                  onPressed: () {
-                    if (formKey.currentState.validate()) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => UpdatePofile()),
-                      );
-                    }
-                  },
-                  child: Text(
-                    'Update Profile',
-                    style: TextStyle(
-                      fontFamily: 'PTSerif',
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              ),
-              
-              SizedBox(
-                width: 250,
-                height: 50,
-                child: RaisedButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(7),
-                  ),
-                  padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                  color: Colors.lightBlueAccent,
-                  onPressed: () {
-                    if (formKey.currentState.validate()) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => PasswordUpdate()),
-                      );
-                    }
-                  },
-                  child: Text(
-                    'Change Password',
-                    style: TextStyle(
-                      fontFamily: 'PTSerif',
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              ), 
-              ],
+                  ],
                 ),
               ),
               

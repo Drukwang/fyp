@@ -1,5 +1,5 @@
-//import 'package:FYPApp/normaluser/normaluserpage.dart';
-import 'package:FYPApp/privilegeuser/privilegepage.dart';
+//import 'package:fyp_app/normaluser/normaluserpage.dart';
+import 'package:fyp_app/privilegeuser/privilegepage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -123,26 +123,33 @@ class HomePage extends StatelessWidget {
               height: 50,
               width: 100,
               margin: EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
-              child: RaisedButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                color: Colors.lightBlueAccent,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PrivilegeActivity(),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(5,0,5,0),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        side: BorderSide(color: Colors.black)
+                      )
                     ),
-                  );
-                },
-                child: Text(
-                  'log In',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontFamily: 'PTSerif',
-                    fontWeight: FontWeight.bold,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PrivilegeActivity(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'log In',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: 'PTSerif',
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),

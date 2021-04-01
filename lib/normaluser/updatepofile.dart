@@ -167,52 +167,64 @@ class _UpdatePofileState extends State<UpdatePofile> {
                       ],                
                     ),
                   ),
-                ),
-                
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget> [                             
-                              RaisedButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(7),
-                                ),
-                                padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                color: Colors.lightBlueAccent,
-                                onPressed: () {
-                                  
-                                },
-                                child: Text(
-                                  'Update',
-                                  style: TextStyle(
-                                    fontFamily: 'PTSerif',
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ),
-                              RaisedButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(7),
-                                ),
-                                padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                color: Colors.lightBlueAccent,
-                                onPressed: () {
-                                  Navigator.pop(
-                                    context,
-                                  );
-                                },
-                                child: Text(
-                                  'Cancel',
-                                  style: TextStyle(
-                                    fontFamily: 'PTSerif',
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ),
-                          ],
+                ),                
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget> [  
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(5,0,5,0),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                side: BorderSide(color: Colors.black)
+                              )
+                            ),                        
+                          ),
+                          onPressed: () {                          
+                          },
+                          child: Text(
+                            'Update',
+                            style: TextStyle(
+                              fontFamily: 'PTSerif',
+                              fontSize: 20,
+                            ),
+                          ),
                         ),
-                  ),              
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(5,0,5,0),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                side: BorderSide(color: Colors.black)
+                              )
+                            ),                        
+                          ),
+                          onPressed: () {
+                            Navigator.pop(
+                              context,
+                            );
+                          },
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(
+                              fontFamily: 'PTSerif',
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),              
               ],
             ),
         ),
