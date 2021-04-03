@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
     Future.delayed(
       Duration(seconds: 3),
       () {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => HomePage(),
@@ -114,7 +114,8 @@ class _HomePageState extends State<HomePage> {
               Container(
                 margin: EdgeInsets.fromLTRB(0.0, 35.0, 0.0, 35),
                 child: Text('Log in',
-                  style: TextStyle(
+                textAlign: TextAlign.center,
+                  style: TextStyle(                    
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
                     fontFamily: 'PTSerif',
@@ -154,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               Container(
                 height: 50,
-                width: 100,
+                width: 50,
                 margin: EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(5,0,5,0),
@@ -168,7 +169,7 @@ class _HomePageState extends State<HomePage> {
                         )
                       ),
                     ),
-                    onPressed: emailController.text == "" || passwordController.text == "" ? null : () {
+                    onPressed: emailController.text == "test@test.com" || passwordController.text == "password" ? null : () {
                       setState(() {
                         _isLoading = true;
                         });
@@ -223,6 +224,5 @@ class _HomePageState extends State<HomePage> {
       print(response.body);
     }
   }
-
   //void setState(Null Function() param0) {}
 }
