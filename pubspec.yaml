@@ -26,6 +26,8 @@ dependencies:
   qr_flutter: ^3.2.0
   barcode_scan: ^3.0.1
   url_launcher: ^5.7.2
+  http: any
+  shared_preferences: any
 
   flutter_launcher_icons: ^0.7.3
 

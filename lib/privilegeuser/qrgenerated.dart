@@ -3,7 +3,6 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 class QRGenerated extends StatefulWidget {
   final myQR;
-
   const QRGenerated(this.myQR);
   @override
   _QRGeneratedState createState() => _QRGeneratedState();
