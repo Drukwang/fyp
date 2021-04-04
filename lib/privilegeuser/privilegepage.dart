@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fyp_app/main.dart';
 import 'package:fyp_app/privilegeuser/manualupdate.dart';
 import 'package:fyp_app/privilegeuser/qrgenerated.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 class PrivilegeActivity extends StatefulWidget {
   PrivilegeActivity({Key key}) : super(key: key);
   @override
@@ -9,6 +10,20 @@ class PrivilegeActivity extends StatefulWidget {
 }
 TextEditingController mycontroller = new TextEditingController();
 class _PrivilegeActivityState extends State<PrivilegeActivity> {
+  // SharedPreferences sharedPreferences;
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   date = DateTime.now();
+  //   checkLoginStatus();
+  // }
+
+  // checkLoginStatus() async {
+  //   sharedPreferences = await SharedPreferences.getInstance();
+  //   if(sharedPreferences.getString("token") == null) {
+  //     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => HomePage()), (Route<dynamic> route) => false);
+  //   }
+  // }
   final formKey = GlobalKey<FormState>();
   String valueChoose1;
   String valueChoose2;
@@ -16,11 +31,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
   List listItem2 = ["Intercollege", "Intracollege"];
   DateTime date;
   @override
-  void initState() {
-    super.initState();
-    date = DateTime.now();
-  }
-
+  
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
