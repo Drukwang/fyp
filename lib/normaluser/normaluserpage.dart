@@ -17,7 +17,7 @@ String qrData = "No data found!";
 var data;
 bool hasdata = false;
 class _NormalUserState extends State<NormalUser> {
-  final formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

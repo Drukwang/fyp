@@ -175,49 +175,55 @@ class _UpdatePofileState extends State<UpdatePofile> {
                     children: <Widget> [  
                       Padding(
                         padding: const EdgeInsets.fromLTRB(5,0,5,0),
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                side: BorderSide(color: Colors.black)
-                              )
-                            ),                        
-                          ),
-                          onPressed: () {                          
-                          },
-                          child: Text(
-                            'Update',
-                            style: TextStyle(
-                              fontFamily: 'PTSerif',
-                              fontSize: 20,
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints.tightFor(width: 150, height: 50),
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  side: BorderSide(color: Colors.black)
+                                )
+                              ),                        
+                            ),
+                            onPressed: () {                          
+                            },
+                            child: Text(
+                              'Update',
+                              style: TextStyle(
+                                fontFamily: 'PTSerif',
+                                fontSize: 20,
+                              ),
                             ),
                           ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(5,0,5,0),
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                side: BorderSide(color: Colors.black)
-                              )
-                            ),                        
-                          ),
-                          onPressed: () {
-                            Navigator.pop(
-                              context,
-                            );
-                          },
-                          child: Text(
-                            'Cancel',
-                            style: TextStyle(
-                              fontFamily: 'PTSerif',
-                              fontSize: 20,
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints.tightFor(width: 150, height: 50),
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  side: BorderSide(color: Colors.black)
+                                )
+                              ),                        
+                            ),
+                            onPressed: () {
+                              Navigator.pop(
+                                context,
+                              );
+                            },
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                fontFamily: 'PTSerif',
+                                fontSize: 20,
+                              ),
                             ),
                           ),
                         ),
