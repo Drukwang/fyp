@@ -1,10 +1,9 @@
-//import 'package:fyp_app/normaluser/normaluserpage.dart';
-
-//import 'dart:convert';
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:fyp_app/normaluser/normaluserpage.dart';
 import 'package:fyp_app/privilegeuser/privilegepage.dart';
-//import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
@@ -82,35 +81,59 @@ class _HomePageState extends State<HomePage> {
    bool _isHidden = true;
    bool success = false;
    final GlobalKey<FormState> _form = GlobalKey<FormState>();
-   final TextEditingController emailController = new TextEditingController();
-   final TextEditingController passwordController = new TextEditingController();
-  // Future<void> signIn(String email, password) async {
-  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  //   Map data = {
-  //     'email': email,
-  //     'password': password,
-  //   };
-  //   var jsonResponse;    
-  //   Uri uri = Uri.parse("http://192.168.43.145:3000/users/sign_in/");
-  //   var response = await http.post(uri, headers: {'Accept':'application/json'}, body: data);    
-  //   if(response.statusCode == 200) {
-  //     jsonResponse = json.decode(response.body);
-  //     if(jsonResponse != null) {
-  //       setState(() {
-  //         success = false;
-  //       });        
-  //       sharedPreferences.setString("token", jsonResponse['token']);
-  //       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (BuildContext context) => PrivilegeActivity()), (Route<dynamic> route) => false);
-  //     }
-  //   }
-  //   else {
-  //     setState(() {
-  //       success = false;
-  //     });
-      
-  //     print(response.body);
-  //   }
-  // }
+   final TextEditingController emailController = TextEditingController();
+   final TextEditingController passwordController = TextEditingController();
+  Future<void> sendData(String email, password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map data = {
+      "email": email,
+      "password": password,
+    };
+    //var bodys = json.encode(data);
+    var response;
+    Uri uri = Uri.parse("http://10.2.25.206:8000/api/auth/login");
+    var res = await http.post(uri, headers: {'Accept':'application/json'}, body: data);
+    response = json.decode(res.body);
+    if (res.statusCode == 200) {
+      if (response != null) {
+        setState(() {
+          success = false;
+        });
+
+        //Response['email'];
+        prefs.setString('Token', response['token']);
+        prefs.setString('Email', response['email']);
+        //saveToken = Response['token'].toString();
+         //print(Response['token']);
+        Navigator.push(context, MaterialPageRoute(builder: (context) => PrivilegeActivity()));
+        return Fluttertoast.showToast(
+            msg: "${response['msg']}",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.greenAccent,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+      }
+    }
+    else{
+      setState(() {
+        success = false;
+      });
+      // Map<String, dynamic> data = new Map<String, dynamic>.from(json.decode(res.body));
+      //   print(data['data']['msg']);
+        return Fluttertoast.showToast(
+            msg: "${response['msg']}",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+    }
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,8 +142,8 @@ class _HomePageState extends State<HomePage> {
           key: _form,
             child: Container(
               width: 500,
-              height: 500,
-            margin: EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 0.0),
+              height: 600,
+            margin: EdgeInsets.fromLTRB(0.0, 120.0, 0.0, 0.0),
             padding: EdgeInsets.all(5),
             alignment: Alignment.center,
               child: Column(
@@ -140,63 +163,95 @@ class _HomePageState extends State<HomePage> {
                           fontFamily: 'PTSerif',
                         ),
                       ),
-                    ),              
-                    Flexible(
-                     child: Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                          child: TextFormField(
-                            controller: emailController,
-                            validator: (val){
-                              if(val.isEmpty)
-                                return 'please enter emailID';
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              labelText: ' Email ID',
-                              icon: Icon(Icons.email),
-                              labelStyle: TextStyle(
-                                fontFamily: 'PTSerif',
-                                fontSize: 20
-                              ),
-                            ),
-                          ),
+                    ),
+                    Container(
+                      height: 65,
+                      child: Card(
+                         shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          color: Colors.black,
+                          width: 1.0,
+                        ), 
+                          borderRadius: BorderRadius.circular(15.0),
                         ),
-                      ),
-                      Flexible(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: TextFormField(
-                            controller: passwordController,
-                            obscureText: _isHidden,
-                            validator: (val){
-                              if(val.isEmpty)
-                                return 'please enter the password';
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              labelText: 'Password',
-                              icon: Icon(Icons.lock),
-                              labelStyle: TextStyle(
-                                fontFamily: 'PTSerif',
-                                fontSize: 20
+                         child: Padding(
+                            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              child: TextFormField(
+                                controller: emailController,
+                                validator: (val){
+                                  if(val.isEmpty)
+                                    return 'please enter emailID';
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none,
+                                  labelText: ' Email ID',
+                                  icon: Icon(Icons.email),
+                                  labelStyle: TextStyle(
+                                    fontFamily: 'PTSerif',
+                                    fontSize: 20
+                                  ),
+                                ),
                               ),
-                              // suffix: InkWell(
-                              //  // onTap: _togglePasswordView,
-                              //   // child: Icon(
-                              //   //   _isHidden 
-                              //   //   ? Icons.visibility 
-                              //   //   : Icons.visibility_off,
-                              //   // ),
-                              // ),
                             ),
+                          //),
+                      ),
+                    ),
+                      Container(
+                        height: 65,
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Colors.black,
+                            width: 1.0,
+                          ), 
+                            borderRadius: BorderRadius.circular(15.0),
                           ),
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              child: TextFormField(                              
+                                controller: passwordController,
+                                obscureText: _isHidden,
+                                validator: (val){
+                                  if(val.isEmpty)
+                                    return 'please enter the password';
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none,
+                                  labelText: 'Password',
+                                  icon: Icon(Icons.lock),
+                                  labelStyle: TextStyle(
+                                    fontFamily: 'PTSerif',
+                                    fontSize: 20
+                                  ),
+                                  suffix: InkWell(
+                                   onTap: _togglePasswordView,
+                                    child: Icon(
+                                      _isHidden 
+                                      ? Icons.visibility 
+                                      : Icons.visibility_off,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          //),
                         ),
                       ),
                     Container(
                       height: 50,
-                      width: 100,
+                      width: 120,
                       margin: EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
-                      child: Padding(
+                      child:Padding(
                         padding: const EdgeInsets.fromLTRB(5,0,5,0),
                         child: ElevatedButton(
                           style: ButtonStyle(
@@ -209,18 +264,12 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           onPressed: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => PrivilegeActivity()));
-                            // setState(() {
-                            //   success = true;
-                            // });
-                            
-                          // emailController.text == "" || passwordController.text == "" ? null : () {
-                          //   setState(() {
-                          //     _isLoading = true;
-                          //     });
-                              //signIn(emailController.text, passwordController.text);
-                          },
-                          child: Text(
+                           setState(() {
+                            success = true;
+                          });
+                          sendData(emailController.text, passwordController.text);
+                           },
+                         child: Text(
                             'log In',
                             style: TextStyle(
                               fontSize: 20,
@@ -238,10 +287,9 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-  // void _togglePasswordView() {
-  //   setState(() {
-  //     _isHidden = !_isHidden;
-  //   });
-  // }  
-  //void setState(Null Function() param0) {}
+  void _togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
+  }  
 }

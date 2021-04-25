@@ -8,9 +8,11 @@ class PrivilegeActivity extends StatefulWidget {
   @override
   _PrivilegeActivityState createState() => _PrivilegeActivityState();
 }
-TextEditingController mycontroller = new TextEditingController();
-class _PrivilegeActivityState extends State<PrivilegeActivity> {
-  
+TextEditingController mycontroller1 = new TextEditingController();
+TextEditingController mycontroller2 = new TextEditingController();
+TextEditingController mycontroller3 = new TextEditingController();
+TextEditingController mycontroller4 = new TextEditingController();
+class _PrivilegeActivityState extends State<PrivilegeActivity> {   
   final formKey = GlobalKey<FormState>();
   String valueChoose1;
   String valueChoose2;
@@ -19,7 +21,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
   DateTime selectedDate = DateTime.now(); 
   //DateTime date;
   @override  
-  Widget build(BuildContext context) {    
+  Widget build(BuildContext context) {        
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.blueAccent,
@@ -81,145 +83,208 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
             child: Container(
               height: 800,
               width: 400,
-              margin: EdgeInsets.fromLTRB(30, 0.0, 10, 0.0),
+              margin: EdgeInsets.fromLTRB(10, 0.0, 10, 0.0),
+              padding: EdgeInsets.only(bottom:30),
               child: Form(
                 key: formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.only(right: 50),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          labelText: 'Activity Name',
-                          labelStyle: TextStyle(
-                            fontFamily: 'PTSerif',
-                            fontSize: 20,
-                            color: Colors.black,
+                    Card(
+                      shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        color: Colors.black,
+                        width: 1.0,
+                      ), 
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child: TextFormField(
+                          showCursor: true,
+                          controller: mycontroller1,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            // suffixIcon: IconButton(
+                            //   onPressed: () => mycontroller1.clear(),
+                            //   icon: Icon(Icons.clear),
+                            // ),
+                            labelText: 'Activity Name',
+                            labelStyle: TextStyle(
+                              fontFamily: 'PTSerif',
+                              fontSize: 20,
+                              color: Colors.black,
+                            ),
+                            hintText: 'Enter Activity Name',
+                            hintStyle: TextStyle(
+                              fontSize: 18,
+                              fontFamily: 'PTSerif',
+                            ),
                           ),
-                          hintText: 'Enter Activity Name',
-                          hintStyle: TextStyle(
-                            fontSize: 18,
-                            fontFamily: 'PTSerif',
-                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Activity Name required';
+                            }
+                            return null;
+                          },
                         ),
-                        // ignore: missing_return
-                        validator: (value) {
-                          if (value.trim().isEmpty) {
-                            return 'Activity Name required';
-                          }
-                        },
                       ),
                     ),             
                     InkWell(
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 50, 0),
+                        padding: EdgeInsets.fromLTRB(1, 0, 1, 0),
                         child: Container(
-                          alignment: Alignment.topLeft,
-                          child: Column(children: [
-                            Row(
-                            children: <Widget>[
-                              Text(
-                              'Select date:',// ${date.year}, ${date.month}, ${date.day}',
+                          height: 75,
+                            child: Card(                          
+                            shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              color: Colors.black,
+                              width: 1.0,
+                            ), 
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            //alignment: Alignment.topLeft,
+                            child: Column(children: [
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                              child: Row(
+                                children: <Widget>[
+                                  Text(
+                                  'Select date:',// ${date.year}, ${date.month}, ${date.day}',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                   
+                                  ),                              
+                                ),
+                                Icon(Icons.keyboard_arrow_down),
+                                
+                                ],
+                            ),
+                              ),
+                            Text(selectedDate.toString(),
+                            textAlign: TextAlign.left,
                               style: TextStyle(
-                                fontSize: 20,
-                                backgroundColor: Colors.amberAccent,
-                              ),                              
+                                  fontSize: 20,
+                              ),
                             ),
-                            Icon(Icons.keyboard_arrow_down),
-                            
-                            ],
+                            ],),
                           ),
-                          Text(selectedDate.toString(),
-                          textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontSize: 20,
-                            ),
-                          ),
-                          ],),
                         ),
                       ),
                       onTap: () => _selectDate(context),
                     ),
                   
                 Container(
-                  padding: EdgeInsets.only(right: 50),
-                  child: DropdownButton(
-                        dropdownColor: Colors.white,
-                        hint: Text(
-                          'Select Category',
-                          style: TextStyle(
-                            fontFamily: 'PTSerif',
-                            fontSize: 20,
-                            color: Colors.black,
-                          ),
-                        ),
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: 'PTSerif',
-                          fontSize: 20,
-                        ),
-                        isExpanded: true,
-                        value: valueChoose1,
-                        onChanged: (newValue) {
-                          setState(() {
-                            valueChoose1 = newValue;
-                          });
-                        },
-                        items: listItem1.map((valueItem) {
-                          return DropdownMenuItem(
-                            value: valueItem,
-                            child: Text(
-                              valueItem,
-                              style: TextStyle(
-                                fontFamily: 'PTSerif',
+                  height: 75,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                     side: BorderSide(
+                      color: Colors.black,
+                      width: 1.0,
+                    ), 
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    //padding: EdgeInsets.only(right: 50),
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                              dropdownColor: Colors.white,
+                              hint: Text(
+                                'Select Category',
+                                style: TextStyle(
+                                  fontFamily: 'PTSerif',
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                ),
                               ),
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'PTSerif',
+                                fontSize: 20,
+                              ),
+                              isExpanded: true,
+                              value: valueChoose1,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  valueChoose1 = newValue;
+                                });
+                              },
+                              items: listItem1.map((valueItem) {
+                                return DropdownMenuItem(
+                                  value: valueItem,
+                                  child: Text(
+                                    valueItem,
+                                    style: TextStyle(
+                                      fontFamily: 'PTSerif',
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
                             ),
-                          );
-                        }).toList(),
-                      ),
+                          ),
+                    ),
+                  ),
                 ),
                 // Divider(
                 //   color: Colors.black54,
                 // ),
                Container(
-                    padding: EdgeInsets.only(right: 50),
-                    child: DropdownButton(
-                      dropdownColor: Colors.white,
-                      hint: Text(
-                        'Select Types',
-                        style: TextStyle(
-                          fontFamily: 'PTSerif',
-                          fontSize: 20,
-                          color: Colors.black,
-                        ),
-                      ),
-                      style: TextStyle(
-                        fontFamily: 'PTSerif',
-                        color: Colors.black,
-                        fontSize: 20,
-                      ),
-                      isExpanded: true,
-                      value: valueChoose2,
-                      onChanged: (newValue) {
-                        setState(() {
-                          valueChoose2 = newValue;
-                        });
-                      },
-                      items: listItem2.map((valueItem) {
-                        return DropdownMenuItem(
-                          value: valueItem,
-                          child: Text(
-                            valueItem,
+                height: 75,
+                child: Card(                 
+                   shape: RoundedRectangleBorder(
+                     side: BorderSide(
+                      color: Colors.black,
+                      width: 1.0,
+                    ), 
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            dropdownColor: Colors.white,
+                            hint: Text(
+                              'Select Types',
+                              style: TextStyle(
+                                fontFamily: 'PTSerif',
+                                fontSize: 20,
+                                color: Colors.black,
+                              ),
+                            ),
                             style: TextStyle(
                               fontFamily: 'PTSerif',
+                              color: Colors.black,
                               fontSize: 20,
                             ),
+                            isExpanded: true,
+                            value: valueChoose2,
+                            onChanged: (newValue) {
+                              setState(() {
+                                valueChoose2 = newValue;
+                              });
+                            },
+                            items: listItem2.map((valueItem) {
+                              return DropdownMenuItem(
+                                value: valueItem,
+                                child: Text(
+                                  valueItem,
+                                  style: TextStyle(
+                                    fontFamily: 'PTSerif',
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
                           ),
-                        );
-                      }).toList(),
+                        ),
+                      ),
                     ),
-                  ),
+               ),
 
                 // validator: (value) {
                 //   if (value.isEmpty) {
@@ -227,29 +292,44 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                 //   }
                 // },
 
-                Container(
-                  padding: EdgeInsets.only(right: 50),
-                  child: TextFormField(
-                    controller: mycontroller,
-                    decoration: InputDecoration(
-                      labelText: 'Remarks',
-                      labelStyle: TextStyle(
-                        fontFamily: 'PTSerif',
-                        fontSize: 20,
-                        color: Colors.black,
+                Card(
+                  shape: RoundedRectangleBorder(
+                   side: BorderSide(
+                    color: Colors.black,
+                    width: 1.0,
+                  ), 
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  //padding: EdgeInsets.only(right: 50),
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                      child: TextFormField(
+                      controller: mycontroller4,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        errorBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        labelText: 'Remarks',
+                        labelStyle: TextStyle(
+                          fontFamily: 'PTSerif',
+                          fontSize: 20,
+                          color: Colors.black,
+                        ),
+                        hintText: 'Enter Remarks',
+                        hintStyle: TextStyle(
+                          fontFamily: 'PTSerif',
+                          fontSize: 18,
+                        ),
                       ),
-                      hintText: 'Enter Remarks',
-                      hintStyle: TextStyle(
-                        fontFamily: 'PTSerif',
-                        fontSize: 18,
-                      ),
+                      // ignore: missing_return
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Remarks is required';
+                        }
+                      },
                     ),
-                    // ignore: missing_return
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Remarks is required';
-                      }
-                    },
                   ),
                 ),
                 Container(
@@ -273,11 +353,10 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                               ),                        
                             ),
                             onPressed: () {
-                              print(mycontroller.text);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => QRGenerated(mycontroller.text)));
+                                    builder: (context) => QRGenerated(mycontroller1.text + '\n' + mycontroller4.text)));
                             },
                             child: Text(
                               'Generate QR',
@@ -333,7 +412,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
   _selectDate(BuildContext context) async {
   final DateTime picked = await showDatePicker(
     context: context,
-    initialDate: selectedDate, // Refer step 1
+    initialDate: selectedDate,
     firstDate: DateTime(2000),
     lastDate: DateTime(2025),
   );
