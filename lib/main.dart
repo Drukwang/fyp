@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:fluttertoast/fluttertoast.dart';
 //import 'package:fyp_app/normaluser/normaluserpage.dart';
 import 'package:fyp_app/privilegeuser/privilegepage.dart';
 import 'package:http/http.dart' as http;
@@ -79,62 +79,36 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {  
    bool _isHidden = true;
-   bool success = false;
    final GlobalKey<FormState> _form = GlobalKey<FormState>();
    final TextEditingController emailController = TextEditingController();
    final TextEditingController passwordController = TextEditingController();
-  Future<void> sendData(String email, password) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  signIn(String email, pass) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     Map data = {
-      "email": email,
-      "password": password,
+      'email': email,
+      'password': pass
     };
-    //var bodys = json.encode(data);
-    var response;
-    Uri uri = Uri.parse("http://10.2.25.206:8000/api/auth/login");
-    var res = await http.post(uri, headers: {'Accept':'application/json'}, body: data);
-    response = json.decode(res.body);
-    if (res.statusCode == 200) {
-      if (response != null) {
+    var jsonResponse;
+    var response = await http.post("http://10.2.25.206:8000/api/auth/login", body: data);
+    if(response.statusCode == 200) {
+      jsonResponse = json.decode(response.body);
+      if(jsonResponse != null) {
         setState(() {
-          success = false;
         });
-
-        //Response['email'];
-        prefs.setString('Token', response['token']);
-        prefs.setString('Email', response['email']);
-        //saveToken = Response['token'].toString();
-         //print(Response['token']);
-        Navigator.push(context, MaterialPageRoute(builder: (context) => PrivilegeActivity()));
-        return Fluttertoast.showToast(
-            msg: "${response['msg']}",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.greenAccent,
-            textColor: Colors.white,
-            fontSize: 16.0
-        );
+        sharedPreferences.setString("token", jsonResponse['token']);
+        Navigator.push(context,
+          MaterialPageRoute(
+            builder: (context) => PrivilegeActivity(),
+          ),);
       }
     }
-    else{
+    else {
       setState(() {
-        success = false;
       });
-      // Map<String, dynamic> data = new Map<String, dynamic>.from(json.decode(res.body));
-      //   print(data['data']['msg']);
-        return Fluttertoast.showToast(
-            msg: "${response['msg']}",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0
-        );
+      print(response.body);
     }
   }
-
+  
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -243,8 +217,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                               ),
-                            ),
-                          //),
+                            ), 
                         ),
                       ),
                     Container(
@@ -262,13 +235,14 @@ class _HomePageState extends State<HomePage> {
                                 side: BorderSide(color: Colors.black)
                               )
                             ),
-                          ),
-                          onPressed: (){
-                           setState(() {
-                            success = true;
-                          });
-                          sendData(emailController.text, passwordController.text);
-                           },
+                          ),                          
+                          onPressed: //emailController.text == "" || passwordController.text == "" ? null : 
+                          () {                        
+                            setState(() {
+                            });
+                            signIn(emailController.text, passwordController.text);
+                          },
+                           
                          child: Text(
                             'log In',
                             style: TextStyle(
