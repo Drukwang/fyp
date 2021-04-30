@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fyp_app/main.dart';
+import 'package:fyp_app/homepage.dart';
+//import 'package:fyp_app/main.dart';
 import 'package:fyp_app/privilegeuser/manualupdate.dart';
 import 'package:fyp_app/privilegeuser/qrgenerated.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
