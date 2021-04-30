@@ -81,7 +81,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
           ),
           body: SingleChildScrollView(
             child: Container(
-              height: 800,
+              height: 700,
               width: 400,
               margin: EdgeInsets.fromLTRB(10, 0.0, 10, 0.0),
               padding: EdgeInsets.only(bottom:30),
@@ -147,14 +147,13 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                             ), 
                               borderRadius: BorderRadius.circular(15.0),
                             ),
-                            //alignment: Alignment.topLeft,
                             child: Column(children: [
                               Padding(
                                 padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                               child: Row(
                                 children: <Widget>[
                                   Text(
-                                  'Select date:',// ${date.year}, ${date.month}, ${date.day}',
+                                  'Select date:',
                                   style: TextStyle(
                                     fontSize: 20,
                                    
@@ -230,9 +229,6 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                     ),
                   ),
                 ),
-                // Divider(
-                //   color: Colors.black54,
-                // ),
                Container(
                 height: 75,
                 child: Card(                 
@@ -303,7 +299,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                   //padding: EdgeInsets.only(right: 50),
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                      child: TextFormField(
+                    child: TextFormField(
                       controller: mycontroller4,
                       decoration: InputDecoration(
                         border: InputBorder.none,

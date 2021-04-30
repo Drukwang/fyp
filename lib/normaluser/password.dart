@@ -25,100 +25,151 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-              child: Padding(
+        child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
           child: Form(
             key: _form,
             child: Container(
               margin: EdgeInsets.fromLTRB(20,30,30,50),
-                          child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[           
-                 Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[  
+                  Container(
                    margin: EdgeInsets.only(top: 100),
                   child: CircleAvatar(
                        child: Icon(Icons.person,
                        size: 50,),  
                        radius: 50,            
                     ),
-                 ),
-                 Container(
-                   margin: EdgeInsets.only(top: 50),
-                   child: TextFormField(
-                     controller: _prePassController,
-                     validator: (val){
-                       if(val.isEmpty)
-                        return 'enter previous password';
-                        return null;
-                     },
-                     obscureText: _isHidden,                 
-                     decoration: InputDecoration(
-                      icon: Icon(Icons.lock),
-                      labelText: 'Enter previous password',
-                      suffix: InkWell(
-                        onTap: _togglePasswordView,
-                        child: Icon(
-                          _isHidden 
-                          ? Icons.visibility 
-                          : Icons.visibility_off,
+                 ),   
+                  Card(
+                    shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: Colors.black,
+                      width: 1.0,
+                    ), 
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      child: TextFormField(
+                        showCursor: true,
+                        controller: _prePassController,
+                        validator: (val){
+                          if(val.isEmpty)
+                            return 'enter previous password';
+                            return null;
+                        },
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          disabledBorder: InputBorder.none,
+                          labelText: 'Enter previous password',
+                          labelStyle: TextStyle(
+                            fontFamily: 'PTSerif',
+                            fontSize: 20,
+                            color: Colors.black,
+                          ),
+                          suffix: InkWell(
+                            onTap: _togglePasswordView,
+                            child: Icon(
+                              _isHidden 
+                              ? Icons.visibility 
+                              : Icons.visibility_off,
+                            ),
+                          ),                            
                         ),
-                      ),            
                       ),
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'PTSerif',
-                      ),
-                      
-                   ),
-                 ),
-                 Container(
-                   margin: EdgeInsets.only(top: 30),
-                   child: TextFormField(
-                     controller: _newPassController,
-                     validator: (val){
-                       if(val.isEmpty)
-                        return 'enter new password';
-                        return null;
-                     },
-                     obscureText: _isHidden,
-                     decoration: InputDecoration(
-                      icon: Icon(Icons.lock),
-                      labelText: 'Enter new password',
-                      suffix: InkWell(
-                        onTap: _togglePasswordView,
-                        child: Icon(
-                          _isHidden 
-                          ? Icons.visibility 
-                          : Icons.visibility_off,
+                    ),
+                  ),    
+                  Card(
+                    shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: Colors.black,
+                      width: 1.0,
+                    ), 
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      child: TextFormField(
+                        showCursor: true,
+                        controller: _newPassController,
+                        validator: (val){
+                          if(val.isEmpty)
+                            return 'enter new password';
+                            return null;
+                        },
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          disabledBorder: InputBorder.none,
+                          labelText: 'Enter new password',
+                          labelStyle: TextStyle(
+                            fontFamily: 'PTSerif',
+                            fontSize: 20,
+                            color: Colors.black,
+                          ),
+                          suffix: InkWell(
+                            onTap: _togglePasswordView,
+                            child: Icon(
+                              _isHidden 
+                              ? Icons.visibility 
+                              : Icons.visibility_off,
+                            ),
+                          ),                            
                         ),
-                      ), 
                       ),
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'PTSerif',
+                    ),
+                  ), 
+                  Card(
+                    shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: Colors.black,
+                      width: 1.0,
+                    ), 
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      child: TextFormField(
+                        showCursor: true,
+                        controller: _newConfirmPassController,
+                        validator: (val){
+                          if(val.isEmpty)
+                              return 'Empty';
+                                if(val != _newPassController.text)
+                                  return 'new password doest not match';
+                                return null;                    
+                        },
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          disabledBorder: InputBorder.none,
+                          labelText: 'Enter again to confirm',
+                          labelStyle: TextStyle(
+                            fontFamily: 'PTSerif',
+                            fontSize: 20,
+                            color: Colors.black,
+                          ), 
+                          suffix: InkWell(
+                            onTap: _togglePasswordView,
+                            child: Icon(
+                              _isHidden 
+                              ? Icons.visibility 
+                              : Icons.visibility_off,
+                            ),
+                          ),                          
+                        ),
                       ),
-                   ),
-                 ),
-                 Container(
-                   margin: EdgeInsets.only(top: 30),
-                   child: TextFormField(
-                     controller: _newConfirmPassController,
-                     validator: (val){
-                       if(val.isEmpty)
-                          return 'Empty';
-                            if(val != _newPassController.text)
-                              return 'new password doest not match';
-                            return null;                    
-                     },
-                     decoration: InputDecoration(
-                      labelText: 'Confirm new password',
-                      ),
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'PTSerif',
-                      ),
-                   ),
-                 ),
+                    ),
+                  ),
                  Container(
                    margin: EdgeInsets.only(top: 50),
                    child: Row(
@@ -166,6 +217,5 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
     setState(() {
       _isHidden = !_isHidden;
     });
-  }  
-  //void setState(Null Function() param0) {}
+  } 
 }

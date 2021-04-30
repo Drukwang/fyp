@@ -1,9 +1,8 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-//import 'package:fluttertoast/fluttertoast.dart';
 //import 'package:fyp_app/normaluser/normaluserpage.dart';
 import 'package:fyp_app/privilegeuser/privilegepage.dart';
-import 'package:http/http.dart' as http;
+//import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
@@ -36,7 +35,6 @@ class _MyAppState extends State<MyApp> {
       },
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,33 +80,62 @@ class _HomePageState extends State<HomePage> {
    final GlobalKey<FormState> _form = GlobalKey<FormState>();
    final TextEditingController emailController = TextEditingController();
    final TextEditingController passwordController = TextEditingController();
-  signIn(String email, pass) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    Map data = {
-      'email': email,
-      'password': pass
-    };
-    var jsonResponse;
-    var response = await http.post("http://10.2.25.206:8000/api/auth/login", body: data);
-    if(response.statusCode == 200) {
-      jsonResponse = json.decode(response.body);
-      if(jsonResponse != null) {
-        setState(() {
-        });
-        sharedPreferences.setString("token", jsonResponse['token']);
-        Navigator.push(context,
-          MaterialPageRoute(
-            builder: (context) => PrivilegeActivity(),
-          ),);
-      }
-    }
-    else {
-      setState(() {
-      });
-      print(response.body);
-    }
-  }
-  
+
+  // bool  success = false;
+  // var token;
+  // var data;
+  // Future<void> logIn( String email, password) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   Map data = {      
+  //     "email": email,
+  //     "password": password,      
+  //   };
+    
+    //var response;
+
+  //   Uri uri = Uri.parse("http://192.168.43.145:8000/api/auth/login");
+  //   var res = await http.post(uri, headers: {'Accept':'application/json'}, body: data);
+  //  // var res = await http.post(uri, body:data);
+  //   var encodeFirst = json.encode(res.body);
+  //   //var response = json.decode(encodeFirst);
+  //   if (res != null) {
+  //     if (res.statusCode == 200) {       
+  //       Navigator.push(context, MaterialPageRoute(builder: (context) => PrivilegeActivity()));
+        
+  //         // setState(() {
+  //         //   success = true;
+  //         // });
+  //         prefs.setString("token", res['token']);
+        
+  //         return Fluttertoast.showToast(
+  //             msg: "${res['logged in successfully']}",
+  //             toastLength: Toast.LENGTH_SHORT,
+  //             gravity: ToastGravity.BOTTOM,
+  //             timeInSecForIosWeb: 1,
+  //             backgroundColor: Colors.greenAccent,
+  //             textColor: Colors.white,
+  //             fontSize: 16.0
+  //         );
+        
+  //     }
+      
+  //   }
+  //   else {        
+  //       // setState(() {
+  //       //   success = true;
+  //       // });
+  //       return Fluttertoast.showToast(
+  //           msg: "${['na']}",
+  //           toastLength: Toast.LENGTH_SHORT,
+  //           gravity: ToastGravity.BOTTOM,
+  //           timeInSecForIosWeb: 1,
+  //           backgroundColor: Colors.greenAccent,
+  //           textColor: Colors.white,
+  //           fontSize: 16.0
+  //       );
+  //     }
+  // }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -237,14 +264,13 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),                          
                           onPressed: //emailController.text == "" || passwordController.text == "" ? null : 
-                          () {                        
-                            setState(() {
-                            });
-                            signIn(emailController.text, passwordController.text);
+                          () { 
+                             Navigator.push(context, MaterialPageRoute(builder: (context) => PrivilegeActivity()));                         
+                            //logIn(emailController.text, passwordController.text);
                           },
                            
                          child: Text(
-                            'log In',
+                            'Log In',
                             style: TextStyle(
                               fontSize: 20,
                               fontFamily: 'PTSerif',
