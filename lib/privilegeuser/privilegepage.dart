@@ -32,11 +32,6 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
   List listItem2 = ["Intercollege", "Intracollege"];
   DateTime selectedDate = DateTime.now();
 
-  var newFormat = DateFormat("yy-MM-dd");
-  String updatedDt = newFormat.format(dt);
-  print(updatedDt); // 20-04-03
-  //DateTime date;
-
   //validation
   Future getValidation() async {
     final sharedPreferences = await SharedPreferences.getInstance();
@@ -213,7 +208,6 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                     ),
                   ),
                 ),
-<<<<<<< HEAD
                 InkWell(
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(1, 0, 1, 0),
@@ -224,60 +218,9 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                           side: BorderSide(
                             color: Colors.black,
                             width: 1.0,
-=======
-              ],
-            ),
-          ),
-          body: SingleChildScrollView(
-            child: Container(
-              height: 700,
-              width: 400,
-              margin: EdgeInsets.fromLTRB(10, 0.0, 10, 0.0),
-              padding: EdgeInsets.only(bottom:30),
-              child: Form(
-                key: formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Card(
-                      shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        color: Colors.black,
-                        width: 1.0,
-                      ), 
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: TextFormField(
-                          showCursor: true,
-                          controller: mycontroller1,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                            errorBorder: InputBorder.none,
-                            disabledBorder: InputBorder.none,
-                            // suffixIcon: IconButton(
-                            //   onPressed: () => mycontroller1.clear(),
-                            //   icon: Icon(Icons.clear),
-                            // ),
-                            labelText: 'Activity Name',
-                            labelStyle: TextStyle(
-                              fontFamily: 'PTSerif',
-                              fontSize: 20,
-                              color: Colors.black,
-                            ),
-                            hintText: 'Enter Activity Name',
-                            hintStyle: TextStyle(
-                              fontSize: 18,
-                              fontFamily: 'PTSerif',
-                            ),
->>>>>>> 2994631bfdb4ce1d67d0a6c7ecf5b4f19bb9fd69
                           ),
                           borderRadius: BorderRadius.circular(15.0),
                         ),
-<<<<<<< HEAD
                         //alignment: Alignment.topLeft,
                         child: Column(
                           children: [
@@ -292,37 +235,6 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                                     ),
                                   ),
                                   Icon(Icons.keyboard_arrow_down),
-=======
-                      ),
-                    ),             
-                    InkWell(
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(1, 0, 1, 0),
-                        child: Container(
-                          height: 75,
-                            child: Card(                          
-                            shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              color: Colors.black,
-                              width: 1.0,
-                            ), 
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            child: Column(children: [
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                              child: Row(
-                                children: <Widget>[
-                                  Text(
-                                  'Select date:',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                   
-                                  ),                              
-                                ),
-                                Icon(Icons.keyboard_arrow_down),
-                                
->>>>>>> 2994631bfdb4ce1d67d0a6c7ecf5b4f19bb9fd69
                                 ],
                               ),
                             ),
@@ -393,7 +305,6 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                     ),
                   ),
                 ),
-<<<<<<< HEAD
                 // Divider(
                 //   color: Colors.black54,
                 // ),
@@ -405,16 +316,6 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                         color: Colors.black,
                         width: 1.0,
                       ),
-=======
-               Container(
-                height: 75,
-                child: Card(                 
-                   shape: RoundedRectangleBorder(
-                     side: BorderSide(
-                      color: Colors.black,
-                      width: 1.0,
-                    ), 
->>>>>>> 2994631bfdb4ce1d67d0a6c7ecf5b4f19bb9fd69
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     child: Padding(
@@ -475,7 +376,6 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                   //padding: EdgeInsets.only(right: 50),
-<<<<<<< HEAD
                   // child: Padding(
                   //   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                   //   child: TextFormField(
@@ -506,38 +406,6 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                   //     },
                   //   ),
                   // ),
-=======
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: TextFormField(
-                      controller: mycontroller4,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                        labelText: 'Remarks',
-                        labelStyle: TextStyle(
-                          fontFamily: 'PTSerif',
-                          fontSize: 20,
-                          color: Colors.black,
-                        ),
-                        hintText: 'Enter Remarks',
-                        hintStyle: TextStyle(
-                          fontFamily: 'PTSerif',
-                          fontSize: 18,
-                        ),
-                      ),
-                      // ignore: missing_return
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Remarks is required';
-                        }
-                      },
-                    ),
-                  ),
->>>>>>> 2994631bfdb4ce1d67d0a6c7ecf5b4f19bb9fd69
                 ),
                 Container(
                   padding: EdgeInsets.only(top: 0),
@@ -638,5 +506,4 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
   }
 }
 
-class DateFormat {
-}
+class DateFormat {}
