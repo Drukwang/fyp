@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fyp_app/homepage.dart';
 import 'package:fyp_app/normaluser/contactus.dart';
 import 'package:fyp_app/normaluser/password.dart';
 import 'package:fyp_app/normaluser/qrscanpage.dart';
-
-import '../main.dart';
 
 class UpdatePofile extends StatefulWidget {
   @override

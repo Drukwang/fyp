@@ -1,7 +1,7 @@
 
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
-import 'package:fyp_app/main.dart';
+import 'package:fyp_app/homepage.dart';
 import 'package:fyp_app/normaluser/contactus.dart';
 import 'package:fyp_app/normaluser/password.dart';
 import 'normaluserpage.dart';

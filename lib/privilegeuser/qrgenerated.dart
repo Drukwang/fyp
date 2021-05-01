@@ -1,18 +1,13 @@
-//import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
-//import 'dart:ui' as ui;
 import 'dart:ui';
-//import 'package:fluttertoast/fluttertoast.dart';
-//import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
-//import 'package:image_picker_saver/image_picker_saver.dart';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'dart:async';
-import 'dart:io';
+
 
 class QRGenerated extends StatefulWidget {
   final myQR;
@@ -22,9 +17,8 @@ class QRGenerated extends StatefulWidget {
 }
 
 class _QRGeneratedState extends State<QRGenerated> {
-  GlobalKey _globalKey = new GlobalKey();
-  Uint8List bytes = Uint8List(0);
-  // var filePath;
+  GlobalKey _globalKey = GlobalKey();
+  Directory directory;
   @override
   Widget build(BuildContext context) {
      return Scaffold(
@@ -49,61 +43,64 @@ class _QRGeneratedState extends State<QRGenerated> {
                   margin: EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                     color: Colors.greenAccent,              
+                ),
+                height: 300,
+                width: 300,                     
+                  child: QrImage(
+                    data: widget.myQR,
+                    version: QrVersions.auto,
+                    size: 250.0,
+                    gapless: false,
                   ),
-                  height: 300,
-                  width: 300,                     
-                    child: QrImage(
-                      data: widget.myQR,
-                      version: QrVersions.auto,
-                      size: 250.0,
-                      gapless: false,
-                    ),
-                  ),
-              ),              
+                ),                
+              ),           
              Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                SizedBox(
-                  width: 180,
-                  height: 50,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(5,0,5,0),
-                    child: GestureDetector(
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              side: BorderSide(color: Colors.black)
-                            )
-                          ),                        
-                        ),
-                        onPressed:() async {
-                                final success =
-                                    await ImageGallerySaver.saveImage(this.bytes);
-                                 SnackBar snackBar;
-                              if (success) {
-                                snackBar = SnackBar(
-                                    content:
-                                        Text('Successful Preservation!'));
-                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                              } else {
-                                snackBar = SnackBar(
-                                    content: Text('Save failed!'));
-                              }
-                              },// _takeScreenShot,
-                        child: Text(
-                          'Save',
-                          style: TextStyle(
-                            fontFamily: 'PTSerif',
-                            fontSize: 20,
+              children: <Widget> [
+                Container(
+                    width: 180,
+                    height: 50,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(5,0,5,0),
+                      child: GestureDetector(
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                side: BorderSide(color: Colors.black)
+                              ),
+                            ),                        
+                          ),
+                          onPressed:() async {
+                            RenderRepaintBoundary imageObject = _globalKey.currentContext.findRenderObject();
+                            final image = await imageObject.toImage(pixelRatio: 2);
+                            ByteData bytedata = await image.toByteData(format:ImageByteFormat.png);
+                            final pngBytes = bytedata.buffer.asUint8List();
+                            //final base64String = base64Encode(pngBytes);
+                            directory = await getExternalStorageDirectory();
+                            //Directory tempDir = await getApplicationDocumentsDirectory();
+                            String tempPath = directory.path;
+                            var file = File("$tempPath/filename.png");
+                            await file.writeAsBytes(pngBytes);                               
+                            
+                            
+
+                          },                         
+                          child: Text(
+                            'Save',
+                            style: TextStyle(
+                              fontFamily: 'PTSerif',
+                              fontSize: 20,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),                
+                 
+                          
                 SizedBox(
                   width: 180,
                   height: 50,
@@ -119,8 +116,17 @@ class _QRGeneratedState extends State<QRGenerated> {
                           )
                         ),                        
                       ),
-                      onPressed: () {
-                      _captureAndSharePng();
+                      onPressed: () async {
+                        RenderRepaintBoundary imageobject = _globalKey.currentContext.findRenderObject();
+                        final image =  await imageobject.toImage(pixelRatio: 2);
+                        ByteData byteData = await image.toByteData(format: ImageByteFormat.png);
+                        final pngBytes = byteData.buffer.asUint8List();
+                        //final base64String = base64Encode(pngBytes);
+
+                        await Share.file(
+                          'esys image', 'esys.png', pngBytes, 'image/png',
+                          text:'my optional');
+                      //_captureAndSharePng();
                       },                        
                       child: Text(
                         'Share',
@@ -137,43 +143,7 @@ class _QRGeneratedState extends State<QRGenerated> {
             ],
           ),
         ),
-    );
-  } 
-
-  // void _takeScreenShot() async {
-  //   RenderRepaintBoundary boundary =
-  //       _globalKey.currentContext.findRenderObject();
-  //   ui.Image image = await boundary.toImage();
-  //   ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-  //   Uint8List pngBytes = byteData.buffer.asUint8List();
-  //   print(pngBytes);
-  //   var filePath = await ImagePickerSaver.saveFile(fileData: pngBytes);
-  //   print(filePath);
-  // }
-
-  Future<void> _captureAndSharePng() async {
-    try {
-      RenderRepaintBoundary boundary = _globalKey.currentContext.findRenderObject();
-      var image = await boundary.toImage();
-      ByteData byteData = await image.toByteData(format: ImageByteFormat.png);
-      Uint8List pngBytes = byteData.buffer.asUint8List();
-
-      final tempDir = await getTemporaryDirectory();
-      final file = await new File('${tempDir.path}/image.png').create();
-      await file.writeAsBytes(pngBytes);
-
-      final channel = const MethodChannel('channel:me.alfian.share/share');
-      channel.invokeMethod('shareFile', 'image.png');
-
-    } catch(e) {
-      print(e.toString());
+      );
     }
-  }
-  // void capture() {
-  // http.get('https://www.gravatar.com/avatar/e944138e1114aefe4b08848a46465589').then((response) {
-  //   Uint8List bodyBytes = response.bodyBytes;
-  //   File('my_image.jpg').writeAsBytes(bodyBytes);
-  // });
-  // }
 }
                        

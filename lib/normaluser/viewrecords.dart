@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fyp_app/homepage.dart';
 import 'package:fyp_app/normaluser/contactus.dart';
 import 'package:fyp_app/normaluser/password.dart';
-
-import '../main.dart';
 
 class ViewRecords extends StatelessWidget {
   @override

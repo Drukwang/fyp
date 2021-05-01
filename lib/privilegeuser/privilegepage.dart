@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fyp_app/homepage.dart';
-//import 'package:fyp_app/main.dart';
-import 'package:fyp_app/privilegeuser/manualupdate.dart';
 import 'package:fyp_app/privilegeuser/qrgenerated.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
+
 class PrivilegeActivity extends StatefulWidget {
   PrivilegeActivity({Key key}) : super(key: key);
   @override
@@ -13,14 +11,16 @@ TextEditingController mycontroller1 = new TextEditingController();
 TextEditingController mycontroller2 = new TextEditingController();
 TextEditingController mycontroller3 = new TextEditingController();
 TextEditingController mycontroller4 = new TextEditingController();
+TextEditingController mycontroller5 = new TextEditingController();
 class _PrivilegeActivityState extends State<PrivilegeActivity> {   
   final formKey = GlobalKey<FormState>();
   String valueChoose1;
   String valueChoose2;
-  List listItem1 = ["Cultural Activities", "Games", "SUPW", "Voluntary Works"];
-  List listItem2 = ["Intercollege", "Intracollege"];
-  DateTime selectedDate = DateTime.now(); 
-  //DateTime date;
+  String valueChoose3;
+  List listItem1 = ["Spring Semester", "Autumn Semester"];
+  List listItem2 = ["Cultural Activities", "Games", "SUPW", "Voluntary Works"];
+  List listItem3 = ["Intercollege", "Intracollege"];
+ 
   @override  
   Widget build(BuildContext context) {        
         return Scaffold(
@@ -110,10 +110,6 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                             enabledBorder: InputBorder.none,
                             errorBorder: InputBorder.none,
                             disabledBorder: InputBorder.none,
-                            // suffixIcon: IconButton(
-                            //   onPressed: () => mycontroller1.clear(),
-                            //   icon: Icon(Icons.clear),
-                            // ),
                             labelText: 'Activity Name',
                             labelStyle: TextStyle(
                               fontFamily: 'PTSerif',
@@ -134,288 +130,254 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                           },
                         ),
                       ),
-                    ),             
-                    InkWell(
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(1, 0, 1, 0),
-                        child: Container(
-                          height: 75,
-                            child: Card(                          
-                            shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              color: Colors.black,
-                              width: 1.0,
-                            ), 
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            child: Column(children: [
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                              child: Row(
-                                children: <Widget>[
-                                  Text(
-                                  'Select date:',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                   
-                                  ),                              
-                                ),
-                                Icon(Icons.keyboard_arrow_down),
-                                
-                                ],
-                            ),
-                              ),
-                            Text(selectedDate.toString(),
-                            textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  fontSize: 20,
-                              ),
-                            ),
-                            ],),
-                          ),
-                        ),
+                    ),
+                    Card(
+                      shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        color: Colors.black,
+                        width: 1.0,
+                      ), 
+                        borderRadius: BorderRadius.circular(15.0),
                       ),
-                      onTap: () => _selectDate(context),
-                    ),
-                  
-                Container(
-                  height: 75,
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                     side: BorderSide(
-                      color: Colors.black,
-                      width: 1.0,
-                    ), 
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    //padding: EdgeInsets.only(right: 50),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton(
-                              dropdownColor: Colors.white,
-                              hint: Text(
-                                'Select Category',
-                                style: TextStyle(
-                                  fontFamily: 'PTSerif',
-                                  fontSize: 20,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'PTSerif',
-                                fontSize: 20,
-                              ),
-                              isExpanded: true,
-                              value: valueChoose1,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  valueChoose1 = newValue;
-                                });
-                              },
-                              items: listItem1.map((valueItem) {
-                                return DropdownMenuItem(
-                                  value: valueItem,
-                                  child: Text(
-                                    valueItem,
-                                    style: TextStyle(
-                                      fontFamily: 'PTSerif',
-                                    ),
-                                  ),
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                    ),
-                  ),
-                ),
-               Container(
-                height: 75,
-                child: Card(                 
-                   shape: RoundedRectangleBorder(
-                     side: BorderSide(
-                      color: Colors.black,
-                      width: 1.0,
-                    ), 
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                            dropdownColor: Colors.white,
-                            hint: Text(
-                              'Select Types',
-                              style: TextStyle(
-                                fontFamily: 'PTSerif',
-                                fontSize: 20,
-                                color: Colors.black,
+                        child: TextFormField(
+                          showCursor: true,
+                          controller: mycontroller2,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            labelText: 'Enter year',
+                            labelStyle: TextStyle(
+                              fontFamily: 'PTSerif',
+                              fontSize: 20,
+                              color: Colors.black,
+                            ),
+                            hintText: 'eg. 2021',
+                            hintStyle: TextStyle(
+                              fontSize: 18,
+                              fontFamily: 'PTSerif',
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Enter Year';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    ), 
+
+                    Container(
+                      height: 75,
+                      child: Card(                 
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Colors.black,
+                            width: 1.0,
+                          ), 
+                          borderRadius: BorderRadius.circular(15.0),
+                          ),
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton(
+                                  dropdownColor: Colors.blue,
+                                  hint: Text(
+                                    'Select semester',
+                                    style: TextStyle(
+                                      fontFamily: 'PTSerif',
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  style: TextStyle(
+                                    fontFamily: 'PTSerif',
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                  ),
+                                  isExpanded: true,
+                                  value: valueChoose1,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      valueChoose1 = newValue;
+                                    });
+                                  },
+                                  items: listItem1.map((valueItem) {
+                                    return DropdownMenuItem(
+                                      value: valueItem,
+                                      child: Text(
+                                        valueItem,
+                                        style: TextStyle(
+                                          fontFamily: 'PTSerif',
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
                               ),
                             ),
-                            style: TextStyle(
-                              fontFamily: 'PTSerif',
-                              color: Colors.black,
-                              fontSize: 20,
-                            ),
-                            isExpanded: true,
-                            value: valueChoose2,
-                            onChanged: (newValue) {
-                              setState(() {
-                                valueChoose2 = newValue;
-                              });
-                            },
-                            items: listItem2.map((valueItem) {
-                              return DropdownMenuItem(
-                                value: valueItem,
-                                child: Text(
-                                  valueItem,
+                          ),
+                    ),
+                    Container(
+                      height: 75,
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          color: Colors.black,
+                          width: 1.0,
+                        ), 
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        //padding: EdgeInsets.only(right: 50),
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton(
+                                  dropdownColor: Colors.white,
+                                  hint: Text(
+                                    'Select Category',
+                                    style: TextStyle(
+                                      fontFamily: 'PTSerif',
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                    ),
+                                  ),
                                   style: TextStyle(
+                                    color: Colors.black,
                                     fontFamily: 'PTSerif',
                                     fontSize: 20,
                                   ),
+                                  isExpanded: true,
+                                  value: valueChoose2,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      valueChoose2 = newValue;
+                                    });
+                                  },
+                                  items: listItem2.map((valueItem) {
+                                    return DropdownMenuItem(
+                                      value: valueItem,
+                                      child: Text(
+                                        valueItem,
+                                        style: TextStyle(
+                                          fontFamily: 'PTSerif',
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
                                 ),
-                              );
-                            }).toList(),
-                          ),
+                              ),
                         ),
                       ),
                     ),
-               ),
+                  Container(
+                    height: 75,
+                    child: Card(                 
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          color: Colors.black,
+                          width: 1.0,
+                        ), 
+                        borderRadius: BorderRadius.circular(15.0),
+                        ),
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton(
+                                dropdownColor: Colors.white,
+                                hint: Text(
+                                  'Select Types',
+                                  style: TextStyle(
+                                    fontFamily: 'PTSerif',
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                style: TextStyle(
+                                  fontFamily: 'PTSerif',
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                ),
+                                isExpanded: true,
+                                value: valueChoose3,
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    valueChoose3 = newValue;
+                                  });
+                                },
+                                items: listItem3.map((valueItem) {
+                                  return DropdownMenuItem(
+                                    value: valueItem,
+                                    child: Text(
+                                      valueItem,
+                                      style: TextStyle(
+                                        fontFamily: 'PTSerif',
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
 
                 // validator: (value) {
                 //   if (value.isEmpty) {
                 //     return 'Category is required';
                 //   }
-                // },
-
-                Card(
-                  shape: RoundedRectangleBorder(
-                   side: BorderSide(
-                    color: Colors.black,
-                    width: 1.0,
-                  ), 
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  //padding: EdgeInsets.only(right: 50),
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: TextFormField(
-                      controller: mycontroller4,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                        labelText: 'Remarks',
-                        labelStyle: TextStyle(
-                          fontFamily: 'PTSerif',
-                          fontSize: 20,
-                          color: Colors.black,
-                        ),
-                        hintText: 'Enter Remarks',
-                        hintStyle: TextStyle(
-                          fontFamily: 'PTSerif',
-                          fontSize: 18,
-                        ),
-                      ),
-                      // ignore: missing_return
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Remarks is required';
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      SizedBox(
-                        width: 180,
-                        height: 50,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(5,0,5,0),
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  side: BorderSide(color: Colors.black)
-                                )
-                              ),                        
-                            ),
-                            onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => QRGenerated(mycontroller1.text + '\n' + mycontroller4.text)));
-                            },
-                            child: Text(
-                              'Generate QR',
-                              style: TextStyle(
-                                fontFamily: 'PTSerif',
-                                fontSize: 20,
+                // }
+                    Container(
+                      padding: EdgeInsets.only(top: 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          SizedBox(
+                            width: 180,
+                            height: 50,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(5,0,5,0),
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
+                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                      side: BorderSide(color: Colors.black)
+                                    )
+                                  ),                        
+                                ),
+                                onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => QRGenerated(mycontroller1.text + '\n' + mycontroller2.text)));
+                                },
+                                child: Text(
+                                  'Generate QR',
+                                  style: TextStyle(
+                                    fontFamily: 'PTSerif',
+                                    fontSize: 20,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                      SizedBox(
-                        width: 180,
-                        height: 50,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(5,0,5,0),
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  side: BorderSide(color: Colors.black)
-                                )
-                              ),                        
-                            ),
-                            onPressed: () {
-                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ManualUpdate()));
-                          },
-                          child: Text(
-                            'Manual Update',
-                            style: TextStyle(
-                              fontFamily: 'PTSerif',
-                              fontSize: 20,
-                            ),
-                          ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-  _selectDate(BuildContext context) async {
-  final DateTime picked = await showDatePicker(
-    context: context,
-    initialDate: selectedDate,
-    firstDate: DateTime(2000),
-    lastDate: DateTime(2025),
-  );
-  if (picked != null && picked != selectedDate)
-    setState(() {
-      selectedDate = picked;
-    });
-}
+        );
+      }
 }
