@@ -186,7 +186,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                               padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: DropdownButtonHideUnderline(
                                 child: DropdownButton(
-                                  dropdownColor: Colors.blue,
+                                  dropdownColor: Colors.blueGrey[100],
                                   hint: Text(
                                     'Select semester',
                                     style: TextStyle(
@@ -234,12 +234,11 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                         ), 
                           borderRadius: BorderRadius.circular(15.0),
                         ),
-                        //padding: EdgeInsets.only(right: 50),
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: DropdownButtonHideUnderline(
                                 child: DropdownButton(
-                                  dropdownColor: Colors.white,
+                                  dropdownColor: Colors.blueGrey[100],
                                   hint: Text(
                                     'Select Category',
                                     style: TextStyle(
@@ -290,7 +289,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                             padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton(
-                                dropdownColor: Colors.white,
+                                dropdownColor: Colors.blueGrey[100],
                                 hint: Text(
                                   'Select Types',
                                   style: TextStyle(

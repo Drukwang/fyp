@@ -9,7 +9,6 @@ class NormalUser extends StatefulWidget {
   _NormalUserState createState() => _NormalUserState();
 }
 
-
 String qrData = "No data found!";
 var data;
 bool hasdata = false;
