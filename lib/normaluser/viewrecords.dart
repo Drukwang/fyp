@@ -1,19 +1,79 @@
 import 'package:flutter/material.dart';
+import 'package:fyp_app/normaluser/contactus.dart';
+import 'package:fyp_app/normaluser/password.dart';
 
-class ViewPofile extends StatelessWidget {
+import '../main.dart';
+
+class ViewRecords extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
         title: Text(
-          'Profile',
+          'Your Records',
           style: TextStyle(
             fontFamily: 'PTSerif',
             fontSize: 24,
           ),
         ),
         centerTitle: true,
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Column(
+                children: <Widget>[
+                  CircleAvatar(
+                    backgroundImage: AssetImage('assets/cstlogo.png'),
+                    radius: 60,
+                  ),
+                  Divider(),
+                  ListTile(
+                    leading: Icon(Icons.person),
+                    title: Text('About Us',
+                        style: TextStyle(
+                          fontFamily: 'PTSerif',
+                          fontSize: 20,
+                        )),
+                        onTap: (){
+                          Navigator.push(
+                            context,  MaterialPageRoute(builder: (context) => ContactUs()),);
+                        },
+                  ),
+                  Divider(),
+                  ListTile(
+                    leading: Icon(Icons.person),
+                    title: Text('Update Password',
+                        style: TextStyle(
+                          fontFamily: 'PTSerif',
+                          fontSize: 20,
+                        )),
+                        onTap: (){
+                          Navigator.push(
+                            context,  MaterialPageRoute(builder: (context) => PasswordUpdate()),);
+                        },
+                  ),
+                  Divider(),
+                  ListTile(
+                    leading: Icon(Icons.logout),
+                    title: Text('Log Out',
+                        style: TextStyle(
+                          fontFamily: 'PTSerif',
+                          fontSize: 20,
+                        )),
+                        onTap: (){
+                          Navigator.push(
+                            context,  MaterialPageRoute(builder: (context) => HomePage()),);
+                        },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
       body: ListView(
         children: <Widget>[

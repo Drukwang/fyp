@@ -7,6 +7,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 //import 'package:image_picker_saver/image_picker_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -22,7 +23,7 @@ class QRGenerated extends StatefulWidget {
 
 class _QRGeneratedState extends State<QRGenerated> {
   GlobalKey _globalKey = new GlobalKey();
-  // Uint8List bytes1;
+  Uint8List bytes = Uint8List(0);
   // var filePath;
   @override
   Widget build(BuildContext context) {
@@ -67,22 +68,37 @@ class _QRGeneratedState extends State<QRGenerated> {
                   height: 50,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(5,0,5,0),
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            side: BorderSide(color: Colors.black)
-                          )
-                        ),                        
-                      ),
-                      onPressed:(){},// _takeScreenShot,
-                      child: Text(
-                        'Save',
-                        style: TextStyle(
-                          fontFamily: 'PTSerif',
-                          fontSize: 20,
+                    child: GestureDetector(
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              side: BorderSide(color: Colors.black)
+                            )
+                          ),                        
+                        ),
+                        onPressed:() async {
+                                final success =
+                                    await ImageGallerySaver.saveImage(this.bytes);
+                                 SnackBar snackBar;
+                              if (success) {
+                                snackBar = SnackBar(
+                                    content:
+                                        Text('Successful Preservation!'));
+                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                              } else {
+                                snackBar = SnackBar(
+                                    content: Text('Save failed!'));
+                              }
+                              },// _takeScreenShot,
+                        child: Text(
+                          'Save',
+                          style: TextStyle(
+                            fontFamily: 'PTSerif',
+                            fontSize: 20,
+                          ),
                         ),
                       ),
                     ),
