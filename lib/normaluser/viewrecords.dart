@@ -44,7 +44,7 @@ class ViewRecords extends StatelessWidget {
                   ),
                   Divider(),
                   ListTile(
-                    leading: Icon(Icons.person),
+                    leading: Icon(Icons.security),
                     title: Text('Update Password',
                         style: TextStyle(
                           fontFamily: 'PTSerif',
@@ -77,7 +77,7 @@ class ViewRecords extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.fromLTRB(50, 30, 0, 0),
+            padding: const EdgeInsets.fromLTRB(20, 30, 0, 0),
             child: ListTile(
               focusColor: Colors.amberAccent,
                   leading: CircleAvatar(
@@ -92,126 +92,11 @@ class ViewRecords extends StatelessWidget {
                   subtitle: Text('0217508.cst@ub.edu.bt'),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Table(              
-              border: TableBorder.all(color: Colors.black),
-              children: [
-                TableRow(
-                  children: <Widget> [
-                    Container(
-                      height: 50,
-                      width: 12,                      
-                      child:Text('Sl No.',
-                      textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'PTSerif',
-                        ),
-                      ), 
-                    ),
-                    Container(
-                      height: 50,
-                      width: 12,                      
-                      child:Text('Activity Name',
-                      textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'PTSerif',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ), 
-                    ),    
-                    Container(
-                      height: 50,
-                      width: 12,                      
-                      child:Text('Date',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'PTSerif',
-                        fontWeight: FontWeight.bold,
-                      ),
-                      ),
-                      
-                    ), 
-                    Container(
-                      height: 50,
-                      width: 12,                      
-                      child:Text('Category',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'PTSerif',
-                        fontWeight: FontWeight.bold,
-                      ),
-                      ),                    
-                    ),
-                    Container(
-                      height: 50,
-                      width: 12,                      
-                      child:Text('Types',
-                      textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'PTSerif',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ), 
-                    ),
-                    Container(
-                      height: 50,
-                      width: 12,                      
-                      child:Text('Remarks',
-                      textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'PTSerif',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ), 
-                    ),
-                     
-                  ],
-                ),
-                TableRow(
-                  children: <Widget>[
-                    Container(
-                      height: 50,
-                      width: 12,                      
-                      
-                    ),
-                    Container(
-                      height: 50,
-                      width: 12,                      
-                      
-                    ),    
-                    Container(
-                      height: 50,
-                      width: 12,                      
-                     
-                    ), 
-                    Container(
-                      height: 50,
-                      width: 12,                      
-                                        
-                    ),
-                    Container(
-                      height: 50,
-                      width: 12,                      
-                      
-                    ),
-                    Container(
-                      height: 50,
-                      width: 12,                      
-                      
-                    ),
-                  ]
-                ),
-              ],
-            ),
-          ),
+          Container(
+            color: Colors.amberAccent,
+            height: 500,
+            width: 300,
+          )
         ],
       ),
     );

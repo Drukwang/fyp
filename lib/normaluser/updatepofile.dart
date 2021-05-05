@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:fyp_app/homepage.dart';
 import 'package:fyp_app/normaluser/contactus.dart';
+import 'package:fyp_app/normaluser/normaluserpage.dart';
 import 'package:fyp_app/normaluser/password.dart';
-import 'package:fyp_app/normaluser/qrscanpage.dart';
+import 'package:image_picker/image_picker.dart';
+//import 'package:fyp_app/normaluser/qrscanpage.dart';
+//import 'package:fyp_app/normaluser/viewrecords.dart';
 
 class UpdatePofile extends StatefulWidget {
   @override
@@ -12,13 +17,62 @@ class UpdatePofile extends StatefulWidget {
 class _UpdatePofileState extends State<UpdatePofile> {
   final formKey = GlobalKey<FormState>();
   List listItem1 = ["Architecture", "Civil", "Electrical", "Information Technology", "Electronics Communication"];
-  TextEditingController mycontroller1 = new TextEditingController();
-  TextEditingController mycontroller2 = new TextEditingController();
-  TextEditingController mycontroller3 = new TextEditingController();
-  TextEditingController mycontroller4 = new TextEditingController();
-  TextEditingController mycontroller5 = new TextEditingController();
   String valueChoose1;
   String valueChoose2;
+  TextEditingController mycontroller1 = new TextEditingController();
+  TextEditingController mycontroller2 = new TextEditingController();
+  
+  File _image;
+
+  _imgFromCamera() async {
+  PickedFile image = await ImagePicker().getImage(
+    source: ImageSource.camera, imageQuality: 50
+  );
+  setState(() {
+    _image = image as File;
+  });
+}
+
+_imgFromGallery() async {
+  PickedFile image = await  ImagePicker().getImage(
+      source: ImageSource.gallery, imageQuality: 50
+  );
+  setState(() {
+    _image = image as File;
+  });
+}
+
+void _showPicker(context) {
+  showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) {
+        return SafeArea(
+          child: Container(
+            child: Wrap(
+              children: <Widget>[
+                ListTile(
+                    leading: Icon(Icons.photo_library),
+                    title: Text('Photo Library'),
+                    onTap: () {
+                      _imgFromGallery();
+                      Navigator.of(context).pop();
+                    }),
+                ListTile(
+                  leading: Icon(Icons.photo_camera),
+                  title: Text('Camera'),
+                  onTap: () {
+                    _imgFromCamera();
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    );
+  }
+  
   @override
   
   Widget build(BuildContext context) {
@@ -98,6 +152,37 @@ class _UpdatePofileState extends State<UpdatePofile> {
               crossAxisAlignment: CrossAxisAlignment.start,
              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget> [
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      _showPicker(context);
+                    },
+                    child: CircleAvatar(
+                      radius: 50,
+                      child: _image != null
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.file(
+                          _image,
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.fitHeight,
+                        ),
+                      )
+                    : Container(
+                        decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(50)),
+                        width: 100,
+                        height: 100,
+                        child: Icon(
+                          Icons.camera_alt,
+                          color: Colors.blue[800],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 Card(
                   shape: RoundedRectangleBorder(
                   side: BorderSide(
@@ -117,17 +202,13 @@ class _UpdatePofileState extends State<UpdatePofile> {
                         enabledBorder: InputBorder.none,
                         errorBorder: InputBorder.none,
                         disabledBorder: InputBorder.none,
-                        // suffixIcon: IconButton(
-                        //   onPressed: () => mycontroller1.clear(),
-                        //   icon: Icon(Icons.clear),
-                        // ),
-                        labelText: 'First Name',
+                        labelText: 'Enter Name',
                         labelStyle: TextStyle(
                           fontFamily: 'PTSerif',
                           fontSize: 20,
                           color: Colors.black,
                         ),
-                        hintText: 'Enter your first name',
+                        hintText: 'Enter your name',
                         hintStyle: TextStyle(
                           fontSize: 18,
                           fontFamily: 'PTSerif',
@@ -155,17 +236,13 @@ class _UpdatePofileState extends State<UpdatePofile> {
                         enabledBorder: InputBorder.none,
                         errorBorder: InputBorder.none,
                         disabledBorder: InputBorder.none,
-                        // suffixIcon: IconButton(
-                        //   onPressed: () => mycontroller1.clear(),
-                        //   icon: Icon(Icons.clear),
-                        // ),
-                        labelText: 'Middle Name',
+                        labelText: 'Student Number',
                         labelStyle: TextStyle(
                           fontFamily: 'PTSerif',
                           fontSize: 20,
                           color: Colors.black,
                         ),
-                        hintText: 'Enter your middle name',
+                        hintText: 'Enter your student no.',
                         hintStyle: TextStyle(
                           fontSize: 18,
                           fontFamily: 'PTSerif',
@@ -173,41 +250,7 @@ class _UpdatePofileState extends State<UpdatePofile> {
                       ),
                     ),
                   ),
-                ),           
-                Card(
-                  shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                    color: Colors.black,
-                    width: 1.0,
-                  ), 
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: TextFormField(
-                      showCursor: true,
-                      controller: mycontroller3,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                        labelText: 'Last Name',
-                        labelStyle: TextStyle(
-                          fontFamily: 'PTSerif',
-                          fontSize: 20,
-                          color: Colors.black,
-                        ),
-                        hintText: 'Enter your last name',
-                        hintStyle: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'PTSerif',
-                        ),
-                      ),
-                    ),
-                  ),
-                ), 
+                ),
                 Container(
                   height: 75,
                   child: Card(
@@ -218,12 +261,11 @@ class _UpdatePofileState extends State<UpdatePofile> {
                     ), 
                       borderRadius: BorderRadius.circular(15.0),
                     ),
-                    //padding: EdgeInsets.only(right: 50),
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
-                              dropdownColor: Colors.white,
+                              dropdownColor: Colors.blueGrey[100],
                               hint: Text(
                                 'Department',
                                 style: TextStyle(
@@ -259,43 +301,7 @@ class _UpdatePofileState extends State<UpdatePofile> {
                           ),
                     ),
                   ),
-                ),          
-                  
-                Card(
-                  shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                    color: Colors.black,
-                    width: 1.0,
-                  ), 
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: TextFormField(
-                      showCursor: true,
-                      controller: mycontroller5,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                        labelText: 'Student Number',
-                        labelStyle: TextStyle(
-                          fontFamily: 'PTSerif',
-                          fontSize: 20,
-                          color: Colors.black,
-                        ),
-                        hintText: 'Enter your student no.',
-                        hintStyle: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'PTSerif',
-                        ),
-                      ),
-                    ),
-                  ),
-                ),           
-                        
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: Row(
@@ -343,7 +349,7 @@ class _UpdatePofileState extends State<UpdatePofile> {
                             ),
                             onPressed: () {
                               Navigator.push(
-                            context,  MaterialPageRoute(builder: (context) => QRScanPage()),);
+                            context,  MaterialPageRoute(builder: (context) => NormalUser()),);
                             },
                             child: Text(
                               'Cancel',
@@ -357,7 +363,7 @@ class _UpdatePofileState extends State<UpdatePofile> {
                       ),
                     ],
                   ),
-                ),              
+                ),                             
               ],
             ),
         ),

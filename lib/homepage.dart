@@ -132,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                           errorBorder: InputBorder.none,
                           disabledBorder: InputBorder.none,
                           labelText: 'Password',
-                          icon: Icon(Icons.lock),
+                          icon: Icon(Icons.security),
                           labelStyle:
                               TextStyle(fontFamily: 'PTSerif', fontSize: 20),
                           suffix: InkWell(
@@ -169,6 +169,10 @@ class _HomePageState extends State<HomePage> {
                         context,
                         MaterialPageRoute(builder: (context) => PrivilegeActivity()),
                       );
+                      //  Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => NormalUser()),
+                      // );
                         // _form.currentState.validate();
                         // signIn(emailController.text, passwordController.text);
                       },
