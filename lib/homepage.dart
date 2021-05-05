@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:fluttertoast/fluttertoast.dart';
 //import 'package:fyp_app/normaluser/normaluserpage.dart';
-//import 'package:fyp_app/privilegeuser/privilegepage.dart';
-
-import 'normaluser/normaluserpage.dart';
+import 'package:fyp_app/privilegeuser/privilegepage.dart';
 import 'package:http/http.dart' as http;
 //import 'package:shared_preferences/shared_preferences.dart';
 
@@ -36,7 +34,7 @@ class _HomePageState extends State<HomePage> {
         //sharedPreferences.setString("token", jsonResponse['token']);
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => NormalUser()),
+          MaterialPageRoute(builder: (context) => PrivilegeActivity()),
         );
       }
     } else {

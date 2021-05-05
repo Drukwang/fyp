@@ -24,6 +24,8 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
   TextEditingController mycontroller5 = new TextEditingController();
   // ignore: non_constant_identifier_names
   String Value;
+  // ignore: non_constant_identifier_names
+  String ActivityID;
   String chooseType, chooseCategory, chooseSemester;
   String valueChoose1;
   String valueChoose2;
@@ -33,16 +35,37 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
   List listItem3 = ["Intercollege", "Intracollege"];
 
   Future getValidation() async {
-    final sharedPreferences = await SharedPreferences.getInstance();
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var obtainedToken = sharedPreferences.getString('Token');
     setState(() {
       Value = obtainedToken;
     });
   }
 
+  // Future getData() async {
+  //   Uri url = Uri.parse("http://192.168.166.61:8000/api/activities");
+  // }
+
+  //List data[];
+  // void getActivityID() async {
+  //   Uri uri = Uri.parse("http://192.168.166.61:8000/api/activities");
+  //   var res = await http.get(uri, headers: {
+  //     'Authorization': 'Bearer $Value',
+  //     "Accept": "application/json",
+  //     'Content_Type': 'multipart/form-data',
+  //   });
+  //   if (res.statusCode == 200) {
+  //     var responses = json.decode(res.body);
+  //     setState(() {
+  //       data = responses;
+  //     });
+  //   }
+  // }
+
   void addData(String activityName, activityType, activityCategory,
       activityYear, activitySemester) async {
     ///print("user_image:  $image");f
+    SharedPreferences spf = await SharedPreferences.getInstance();
     Uri uri = Uri.parse("http://192.168.166.61:8000/api/activities");
     http.post(uri, headers: {
       'Authorization': 'Bearer $Value',
@@ -63,6 +86,16 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
       if (response.statusCode == 201) {
         if (JsonResponse != null) {
           // Navigator.push(context, MaterialPageRoute(builder: (context) => MyHome()));
+          //setState(() {});
+          spf.setString('activity_id', JsonResponse['id']);
+          var actid = spf.getString('activity_id');
+          setState(() {
+            ActivityID = actid;
+          });
+
+          
+
+          //activity_id = response.activity_id;
           return Fluttertoast.showToast(
               msg: "QR Generated",
               toastLength: Toast.LENGTH_SHORT,
@@ -436,15 +469,8 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                                   chooseCategory,
                                   yearController.text,
                                   chooseSemester);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => QRGenerated(
-                                          activity_name.text +
-                                              '\n' +
-                                              yearController.text +
-                                              '\n' +
-                                              chooseSemester)));
+                              //getActivityID();
+                              Navigator.push(context,MaterialPageRoute(builder: (context) => QRGenerated(ActivityID)));
                             },
                             child: Text(
                               'Generate QR',
