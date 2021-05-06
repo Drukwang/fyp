@@ -1,8 +1,9 @@
 //import 'dart:convert';
 import 'package:flutter/material.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:fluttertoast/fluttertoast.dart';
-//import 'package:fyp_app/normaluser/normaluserpage.dart';
-import 'package:fyp_app/privilegeuser/privilegepage.dart';
+import 'package:fyp_app/normaluser/normaluserpage.dart';
+//import 'package:fyp_app/privilegeuser/privilegepage.dart';
 //import 'package:http/http.dart' as http;
 //import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,15 +23,14 @@ class _HomePageState extends State<HomePage> {
   //   var jsonResponse;
   //   var response = await http.post("http://192.168.166.61:8000/api/login",
   //       headers: {'Accept': 'application/json'}, body: data);
-  //       jsonResponse = json.decode(response.body);
+  //   jsonResponse = json.decode(response.body);
   //   if (response.statusCode == 200) {
-      
   //     if (jsonResponse != null) {
   //       setState(() {});
   //       sharedPreferences.setString('Token', jsonResponse['token']);
   //       //sharedPreferences.setString('Email', jsonResponse['email']);
   //       //sharedPreferences.setString('Name', jsonResponse['name']);
-  //       //sharedPreferences.setInt('ID', jsonResponse['id']);
+  //       sharedPreferences.setInt('ID', jsonResponse['id']);
   //       //sharedPreferences.setString("token", jsonResponse['token']);
   //       Navigator.push(
   //         context,
@@ -165,14 +165,10 @@ class _HomePageState extends State<HomePage> {
                                     side: BorderSide(color: Colors.black))),
                       ),
                       onPressed: () {
-                       Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => PrivilegeActivity()),
-                      );
-                      //  Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => NormalUser()),
-                      // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => NormalUser()),
+                        );
                         // _form.currentState.validate();
                         // signIn(emailController.text, passwordController.text);
                       },
