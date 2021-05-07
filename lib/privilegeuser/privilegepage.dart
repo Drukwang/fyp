@@ -1,8 +1,9 @@
-import 'dart:convert';
+//import 'dart:convert';
 
+import 'package:fyp_app/model/activity.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fyp_app/homepage.dart';
 import 'package:fyp_app/privilegeuser/qrgenerated.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,8 +25,6 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
   TextEditingController mycontroller5 = new TextEditingController();
   // ignore: non_constant_identifier_names
   String Value;
-  // ignore: non_constant_identifier_names
-  String ActivityID;
   String chooseType, chooseCategory, chooseSemester;
   String valueChoose1;
   String valueChoose2;
@@ -35,87 +34,53 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
   List listItem3 = ["Intercollege", "Intracollege"];
 
   Future getValidation() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final sharedPreferences = await SharedPreferences.getInstance();
     var obtainedToken = sharedPreferences.getString('Token');
     setState(() {
       Value = obtainedToken;
     });
   }
 
-  // Future getData() async {
-  //   Uri url = Uri.parse("http://192.168.166.61:8000/api/activities");
-  // }
-
-  //List data[];
-  // void getActivityID() async {
-  //   Uri uri = Uri.parse("http://192.168.166.61:8000/api/activities");
-  //   var res = await http.get(uri, headers: {
-  //     'Authorization': 'Bearer $Value',
-  //     "Accept": "application/json",
-  //     'Content_Type': 'multipart/form-data',
-  //   });
-  //   if (res.statusCode == 200) {
-  //     var responses = json.decode(res.body);
-  //     setState(() {
-  //       data = responses;
-  //     });
-  //   }
-  // }
-
   void addData(String activityName, activityType, activityCategory,
       activityYear, activitySemester) async {
     ///print("user_image:  $image");f
-    SharedPreferences spf = await SharedPreferences.getInstance();
+    Map data = {
+      'activity_name': activityName,
+      'activity_type': activityType,
+      'activity_category': activityCategory,
+      'activity_year': activityYear,
+      'activity_semester': activitySemester
+    };
     Uri uri = Uri.parse("http://192.168.166.61:8000/api/activities");
-    http.post(uri, headers: {
-      'Authorization': 'Bearer $Value',
-      "Accept": "application/json",
-      'Content_Type': 'multipart/form-data',
-    }, body: {
-      "activity_name": "$activityName",
-      "activity_type": "$activityType",
-      "activity_category": "$activityCategory",
-      "activity_year": "$activityYear",
-      "activity_semester": "$activitySemester",
-      //"date": "$date",
-    }).then((response) {
-      //print('Response status : ${response.statusCode}');
-      //print('Response body : ${response.body}');
-      // ignore: non_constant_identifier_names
-      var JsonResponse = json.decode(response.body);
-      if (response.statusCode == 201) {
-        if (JsonResponse != null) {
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => MyHome()));
-          //setState(() {});
-          spf.setString('activity_id', JsonResponse['id']);
-          var actid = spf.getString('activity_id');
-          setState(() {
-            ActivityID = actid;
-          });
+    var response = await http.post(uri,
+        headers: {
+          'Authorization': 'Bearer $Value',
+          'Accept': 'application/json'
+          //'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: data);
 
-          
-
-          //activity_id = response.activity_id;
-          return Fluttertoast.showToast(
-              msg: "QR Generated",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.greenAccent,
-              textColor: Colors.white,
-              fontSize: 16.0);
-        }
-      } else {
-        return Fluttertoast.showToast(
-            msg: "try again",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.greenAccent,
-            textColor: Colors.white,
-            fontSize: 16.0);
-      }
-    });
+    // ignore: non_constant_identifier_names
+    if (response.statusCode == 201) {
+      //var jsonResponse = json.decode(response.body);
+      Activity self = Activity.fromJson(response.body);
+      // Activity self = Activity(
+      //   activity_name: jsonResponse["activity_name"],
+      //   activity_type: jsonResponse["activity_type"],
+      //   activity_category: jsonResponse["activity_category"],
+      //   activity_year: jsonResponse["activity_year"],
+      //   activity_semester: jsonResponse["activity_semester"],
+      //   id: jsonResponse["id"],
+      // );
+      // if (jsonResponse != null) {
+      //   return Activity.fromJson(jsonResponse);
+      //   // Navigator.push(context, MaterialPageRoute(builder: (context) => MyHome()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => QRGenerated(self.id.toString())));
+      // }
+    } else {
+      throw Exception('Failed to create activity.');
+    }
   }
 
   @override
@@ -469,8 +434,6 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                                   chooseCategory,
                                   yearController.text,
                                   chooseSemester);
-                              //getActivityID();
-                              Navigator.push(context,MaterialPageRoute(builder: (context) => QRGenerated(ActivityID)));
                             },
                             child: Text(
                               'Generate QR',
