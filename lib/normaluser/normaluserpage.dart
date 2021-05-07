@@ -13,17 +13,6 @@ String qrData = "No data found!";
 var data;
 bool hasdata = false;
 class _NormalUserState extends State<NormalUser> {
-  //  Future<void> initState() async {
-  //   super.initState();
-  //     var options = ScanOptions(
-  //                     autoEnableFlash: false,
-  //                   );
-  //     var data = await BarcodeScanner.scan(options: options);
-  //                   setState(() {
-  //                     qrData = data.rawContent.toString();
-  //                     hasdata = true;
-  //                   });
-  // }
   int _currentIndex = 1;
   final List<Widget> _children = [
     UpdatePofile(),
@@ -44,8 +33,8 @@ class _NormalUserState extends State<NormalUser> {
        
        items: [
          BottomNavigationBarItem(
-           icon: Icon(Icons.person),
-           label: 'Profile',
+           icon: Icon(Icons.person_add),
+           label: 'Manage Profile',
          ),
         
          BottomNavigationBarItem(

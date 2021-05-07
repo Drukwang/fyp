@@ -16,13 +16,15 @@ class PrivilegeActivity extends StatefulWidget {
 
 class _PrivilegeActivityState extends State<PrivilegeActivity> {
   final _form = GlobalKey<FormState>();
-
   // ignore: non_constant_identifier_names
-  TextEditingController activity_name = new TextEditingController();
-  TextEditingController yearController = new TextEditingController();
-  TextEditingController mycontroller3 = new TextEditingController();
-  TextEditingController mycontroller4 = new TextEditingController();
-  TextEditingController mycontroller5 = new TextEditingController();
+  TextEditingController activity_name = TextEditingController();
+  TextEditingController yearController = TextEditingController();
+  TextEditingController mycontroller3 = TextEditingController();
+  TextEditingController mycontroller4 = TextEditingController();
+  TextEditingController mycontroller5 = TextEditingController();
+  // ignore: unused_field
+  String _dataString;
+ 
   // ignore: non_constant_identifier_names
   String Value;
   String chooseType, chooseCategory, chooseSemester;
@@ -32,6 +34,12 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
   List listItem1 = ["Spring Semester", "Autumn Semester"];
   List listItem2 = ["Cultural Activities", "Games", "SUPW", "Voluntary Works"];
   List listItem3 = ["Intercollege", "Intracollege"];
+
+  // Map<String, String> qrData = {
+  //   'activity' : activity_name.text,
+  //   'year' : yearController.text
+  // };
+  // String userJson = jsonEncode(qrData);
 
   Future getValidation() async {
     final sharedPreferences = await SharedPreferences.getInstance();
@@ -97,7 +105,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
         title: Text(
-          'Activity',
+          ' Create Activity',
           style: TextStyle(
             fontFamily: 'PTSerif',
             fontSize: 24,
@@ -258,7 +266,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton(
-                          dropdownColor: Colors.blue,
+                          dropdownColor: Colors.blueGrey[100],
                           hint: Text(
                             'Select semester',
                             style: TextStyle(
@@ -311,7 +319,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton(
-                          dropdownColor: Colors.white,
+                          dropdownColor: Colors.blueGrey[100],
                           hint: Text(
                             'Select Category',
                             style: TextStyle(
@@ -362,7 +370,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton(
-                          dropdownColor: Colors.white,
+                          dropdownColor: Colors.blueGrey[100],
                           hint: Text(
                             'Select Types',
                             style: TextStyle(
@@ -456,3 +464,4 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
     );
   }
 }
+

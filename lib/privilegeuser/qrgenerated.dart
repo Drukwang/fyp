@@ -1,3 +1,4 @@
+//import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
+//import 'package:fyp_app/normaluser/normaluserpage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -19,6 +21,7 @@ class QRGenerated extends StatefulWidget {
 class _QRGeneratedState extends State<QRGenerated> {
   GlobalKey _globalKey = GlobalKey();
   Directory directory;
+  String tutorial;
   @override
   Widget build(BuildContext context) {
      return Scaffold(
@@ -48,9 +51,12 @@ class _QRGeneratedState extends State<QRGenerated> {
                 width: 300,                     
                   child: QrImage(
                     data: widget.myQR,
+                    //'{"title": "Dart Tutorial", "description": "Way to parse Json", "author": {"name": "bezkoder", "age": 30}}';
+                    //QRGenerated tutorial = QRGenerated.fromJson(jsonDecode(data)),
                     version: QrVersions.auto,
                     size: 250.0,
                     gapless: false,
+                    //print(tutorial);
                   ),
                 ),                
               ),           

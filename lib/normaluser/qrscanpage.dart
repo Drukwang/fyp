@@ -12,6 +12,8 @@ class QRScanPage extends StatefulWidget {
 }
 
 class _QRScanPageState extends State<QRScanPage> {
+  var console;
+
   void initState() {
     super.initState();
       var options = ScanOptions(
@@ -74,7 +76,7 @@ class _QRScanPageState extends State<QRScanPage> {
                   ),
                   Divider(),
                   ListTile(
-                    leading: Icon(Icons.person),
+                    leading: Icon(Icons.security),
                     title: Text('Update Password',
                         style: TextStyle(
                           fontFamily: 'PTSerif',
