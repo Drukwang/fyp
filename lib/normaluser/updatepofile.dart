@@ -202,6 +202,10 @@ void _showPicker(context) {
                         child: TextFormField(
                           showCursor: true,
                           controller: mycontroller1,
+                          validator: (val) {
+                          if (val.isEmpty) return 'please enter your name';
+                            return null;
+                          },
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             focusedBorder: InputBorder.none,
@@ -239,6 +243,10 @@ void _showPicker(context) {
                         child: TextFormField(
                           showCursor: true,
                           controller: mycontroller2,
+                          validator: (val) {
+                          if (val.isEmpty) return 'please enter std no.';
+                            return null;
+                          },
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             focusedBorder: InputBorder.none,

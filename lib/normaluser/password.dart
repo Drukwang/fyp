@@ -100,16 +100,6 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(top: 100),
-                    child: CircleAvatar(
-                      child: Icon(
-                        Icons.person,
-                        size: 50,
-                      ),
-                      radius: 50,
-                    ),
-                  ),
                   Card(
                     shape: RoundedRectangleBorder(
                       side: BorderSide(

@@ -109,3 +109,4 @@ class Activity {
       id.hashCode;
   }
 }
+
