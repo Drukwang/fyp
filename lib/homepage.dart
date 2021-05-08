@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-//import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fyp_app/model/user.dart';
 import 'package:fyp_app/normaluser/normaluserpage.dart';
-//import 'package:fyp_app/privilegeuser/privilegepage.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'normaluser/normaluserpage.dart';
+//import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:fyp_app/normaluser/normaluserpage.dart';
+import 'package:fyp_app/privilegeuser/privilegepage.dart';
+import 'package:http/http.dart' as http;
+//import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -22,21 +23,29 @@ class _HomePageState extends State<HomePage> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     Map data = {'email': email, 'password': pass};
     var jsonResponse;
-    var response = await http.post("http://10.2.25.206:8000/api/login",
+    var response = await http.post("http://192.168.166.61:8000/api/login",
         headers: {'Accept': 'application/json'}, body: data);
     jsonResponse = json.decode(response.body);
     if (response.statusCode == 200) {
       if (jsonResponse != null) {
+        User user = User.fromJson(response.body);
         setState(() {});
         sharedPreferences.setString('Token', jsonResponse['token']);
         //sharedPreferences.setString('Email', jsonResponse['email']);
         //sharedPreferences.setString('Name', jsonResponse['name']);
         sharedPreferences.setInt('ID', jsonResponse['id']);
         //sharedPreferences.setString("token", jsonResponse['token']);
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => NormalUser()),
-        );
+        if (user.role == "student") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => PrivilegeActivity()),
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => NormalUser()),
+          );
+        }
       }
     } else {
       setState(() {});
