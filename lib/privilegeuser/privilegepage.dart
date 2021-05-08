@@ -40,7 +40,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
   //   'year' : yearController.text
   // };
   // String userJson = jsonEncode(qrData);
-
+  
   Future getValidation() async {
     final sharedPreferences = await SharedPreferences.getInstance();
     var obtainedToken = sharedPreferences.getString('Token');
