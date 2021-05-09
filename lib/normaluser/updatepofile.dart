@@ -2,15 +2,11 @@
 import 'dart:io';
 //import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-//import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fyp_app/homepage.dart';
-import 'package:fyp_app/normaluser/contactus.dart';
-import 'package:fyp_app/normaluser/normaluserpage.dart';
-import 'package:fyp_app/normaluser/password.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-//import 'package:fyp_app/normaluser/qrscanpage.dart';
-//import 'package:fyp_app/normaluser/viewrecords.dart';
+
+import 'viewrecords.dart';
 
 class UpdatePofile extends StatefulWidget {
   @override
@@ -151,11 +147,11 @@ class _UpdatePofileState extends State<UpdatePofile> {
     getValidation();
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.blueAccent,
         title: Text(
           'Update Profile',
@@ -165,69 +161,6 @@ class _UpdatePofileState extends State<UpdatePofile> {
           ),
         ),
         centerTitle: true,
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: Column(
-                children: <Widget>[
-                  CircleAvatar(
-                    backgroundImage: AssetImage('assets/cstlogo.png'),
-                    radius: 60,
-                  ),
-                  Divider(),
-                  ListTile(
-                    leading: Icon(Icons.person),
-                    title: Text('About Us',
-                        style: TextStyle(
-                          fontFamily: 'PTSerif',
-                          fontSize: 20,
-                        )),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ContactUs()),
-                      );
-                    },
-                  ),
-                  Divider(),
-                  ListTile(
-                    leading: Icon(Icons.person),
-                    title: Text('Update Password',
-                        style: TextStyle(
-                          fontFamily: 'PTSerif',
-                          fontSize: 20,
-                        )),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PasswordUpdate()),
-                      );
-                    },
-                  ),
-                  Divider(),
-                  ListTile(
-                    leading: Icon(Icons.logout),
-                    title: Text('Log Out',
-                        style: TextStyle(
-                          fontFamily: 'PTSerif',
-                          fontSize: 20,
-                        )),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
       ),
       body: Container(
         margin: EdgeInsets.all(10),
@@ -435,41 +368,23 @@ class _UpdatePofileState extends State<UpdatePofile> {
                               //   valueChoose1,
                               //   int.parse(mycontroller2.text),
                               // );
+                              bool updateded = false;
+                              if (!updateded) {
+                                updateded = true;
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => ViewRecords()),
+                                );
+                                Fluttertoast.showToast(  
+                                  msg: 'Updated successfully',  
+                                  toastLength: Toast.LENGTH_SHORT,  
+                                  gravity: ToastGravity.BOTTOM,  
+                                  textColor: Colors.black, 
+                                );
+                              }         
                             },
                             child: Text(
                               'Update',
-                              style: TextStyle(
-                                fontFamily: 'PTSerif',
-                                fontSize: 20,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                        child: ConstrainedBox(
-                          constraints:
-                              BoxConstraints.tightFor(width: 150, height: 50),
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.lightBlueAccent),
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                      side: BorderSide(color: Colors.black))),
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => NormalUser()),
-                              );
-                            },
-                            child: Text(
-                              'Cancel',
                               style: TextStyle(
                                 fontFamily: 'PTSerif',
                                 fontSize: 20,

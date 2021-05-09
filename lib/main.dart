@@ -7,8 +7,7 @@ void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: MyApp(),
-  ));
- 
+  )); 
 }
 
 class MyApp extends StatefulWidget {
