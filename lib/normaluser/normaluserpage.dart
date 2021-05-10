@@ -20,6 +20,28 @@ class _NormalUserState extends State<NormalUser> {
     QRScanPage(),
   ];
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  Future<bool> _onBackPressed(){
+    return showDialog(
+      context: context,
+      builder: (context)=> AlertDialog(
+        title: Text("Do you really want to exit?"),
+        actions: <Widget>[
+          ElevatedButton(
+            child: Text("No"),
+            onPressed: () => Navigator.pop(context, false),
+          ),
+          ElevatedButton(child: Text("Yes"),
+            onPressed: () => Navigator.pop(context, true),
+            // Navigator.of(context).pushAndRemoveUntil(
+            //   MaterialPageRoute(
+            //     builder: (BuildContext context) => HomePage(),
+            //   ),
+            //   (Route route) => false,
+            // ), 
+          ),
+        ]
+      ));
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,13 +72,7 @@ class _NormalUserState extends State<NormalUser> {
          ),
        ],       
      ),
-      body: _children[_currentIndex],
+      body: WillPopScope(onWillPop: _onBackPressed, child: _children[_currentIndex],),
     );
   }  
 }
-// onPressed: () async {
-//   String codeScanner =await BarcodeScanner.scan();
-//   setState((){
-//     qrCodeResult = codeScanner;
-//   });
-// },

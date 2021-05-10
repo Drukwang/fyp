@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,6 +18,8 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
   // ignore: non_constant_identifier_names
   String Value;
   bool _isHidden = true;
+  bool _isHidden1 = true;
+  bool _isHidden2 = true;
 
   Future getValidation() async {
     final sharedPreferences = await SharedPreferences.getInstance();
@@ -83,6 +84,7 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.blueAccent,
         title: Text(
           'Change Password',
@@ -92,7 +94,7 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+          padding: const EdgeInsets.fromLTRB(20, 150, 0, 0),
           child: Form(
             key: _form,
             child: Container(
@@ -100,16 +102,6 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(top: 100),
-                    child: CircleAvatar(
-                      child: Icon(
-                        Icons.person,
-                        size: 50,
-                      ),
-                      radius: 50,
-                    ),
-                  ),
                   Card(
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
@@ -122,6 +114,7 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: TextFormField(
                         showCursor: true,
+                        obscureText: _isHidden,
                         controller: _prePassController,
                         validator: (val) {
                           if (val.isEmpty) return 'enter previous password';
@@ -163,6 +156,7 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: TextFormField(
                         showCursor: true,
+                        obscureText: _isHidden1,
                         controller: _newPassController,
                         validator: (val) {
                           if (val.isEmpty) return 'enter new password';
@@ -181,9 +175,9 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
                             color: Colors.black,
                           ),
                           suffix: InkWell(
-                            onTap: _togglePasswordView,
+                            onTap: _togglePasswordView1,
                             child: Icon(
-                              _isHidden
+                              _isHidden1
                                   ? Icons.visibility
                                   : Icons.visibility_off,
                             ),
@@ -204,6 +198,7 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: TextFormField(
                         showCursor: true,
+                        obscureText: _isHidden2,
                         controller: _newConfirmPassController,
                         validator: (val) {
                           if (val.isEmpty) return 'Empty';
@@ -224,9 +219,9 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
                             color: Colors.black,
                           ),
                           suffix: InkWell(
-                            onTap: _togglePasswordView,
+                            onTap: _togglePasswordView2,
                             child: Icon(
-                              _isHidden
+                              _isHidden2
                                   ? Icons.visibility
                                   : Icons.visibility_off,
                             ),
@@ -288,6 +283,16 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
   void _togglePasswordView() {
     setState(() {
       _isHidden = !_isHidden;
+    });
+  }
+  void _togglePasswordView1() {
+    setState(() {
+      _isHidden1 = !_isHidden1;
+    });
+  }
+  void _togglePasswordView2() {
+    setState(() {
+      _isHidden2 = !_isHidden2;
     });
   }
 }

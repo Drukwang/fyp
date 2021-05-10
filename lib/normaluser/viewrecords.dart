@@ -3,7 +3,34 @@ import 'package:fyp_app/homepage.dart';
 import 'package:fyp_app/normaluser/contactus.dart';
 import 'package:fyp_app/normaluser/password.dart';
 
-class ViewRecords extends StatelessWidget {
+class ViewRecords extends StatefulWidget {
+  @override
+  _ViewRecordsState createState() => _ViewRecordsState();
+}
+
+class _ViewRecordsState extends State<ViewRecords> {
+  Future<bool> _onBackPressed(){
+    return showDialog(
+      context: context,
+      builder: (context)=> AlertDialog(
+        title: Text("Do you really want to exit?"),
+        actions: <Widget>[
+          ElevatedButton(
+            child: Text("No"),
+            onPressed: () => Navigator.pop(context, false),
+          ),
+          ElevatedButton(child: Text("Yes"),
+            onPressed: () => //Navigator.pop(context, true),
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                builder: (BuildContext context) => HomePage(),
+              ),
+              (Route route) => false,
+            ), 
+          ),
+        ]
+      ));
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,15 +86,14 @@ class ViewRecords extends StatelessWidget {
                   ListTile(
                     leading: Icon(Icons.logout),
                     title: Text('Log Out',
-                        style: TextStyle(
-                          fontFamily: 'PTSerif',
-                          fontSize: 20,
-                        )),
-                        onTap: (){
-                          Navigator.push(
-                            context,  MaterialPageRoute(builder: (context) => HomePage()),);
-                        },
+                      style: TextStyle(
+                        fontFamily: 'PTSerif',
+                        fontSize: 20,
+                      )),
+                    onTap: _onBackPressed,
                   ),
+                    
+                  Divider(),
                 ],
               ),
             ),
@@ -84,7 +110,7 @@ class ViewRecords extends StatelessWidget {
                     radius: 30,
                     child: Icon(Icons.person),
                   ),
-                  title: Text('Name: Drukwang Norbu',
+                  title: Text('Drukwang Norbu',
                     style: TextStyle(
                         fontSize: 20,
                       ),

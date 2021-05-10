@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 //import 'package:fyp_app/normaluser/normaluserpage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -89,10 +90,13 @@ class _QRGeneratedState extends State<QRGenerated> {
                             //Directory tempDir = await getApplicationDocumentsDirectory();
                             String tempPath = directory.path;
                             var file = File("$tempPath/filename.png");
-                            await file.writeAsBytes(pngBytes);                               
-                            
-                            
-
+                            await file.writeAsBytes(pngBytes);
+                            Fluttertoast.showToast(  
+                              msg: 'Updated successfully',  
+                              toastLength: Toast.LENGTH_SHORT,  
+                              gravity: ToastGravity.BOTTOM,  
+                              textColor: Colors.black, 
+                            );
                           },                         
                           child: Text(
                             'Save',
@@ -105,8 +109,6 @@ class _QRGeneratedState extends State<QRGenerated> {
                       ),
                     ),
                   ),
-                 
-                          
                 SizedBox(
                   width: 180,
                   height: 50,

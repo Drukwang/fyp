@@ -59,7 +59,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
       'activity_year': activityYear,
       'activity_semester': activitySemester
     };
-    Uri uri = Uri.parse("http://192.168.166.61:8000/api/activities");
+    Uri uri = Uri.parse("http://192.168.43.145:8000/api/activities");
     var response = await http.post(uri,
         headers: {
           'Authorization': 'Bearer $Value',
@@ -203,7 +203,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                         ),
                       ),
                       validator: (value) {
-                        if (value.isEmpty) {
+                        if (value.isEmpty || value == null) {
                           return 'Activity Name required';
                         }
                         return null;
@@ -243,7 +243,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                         ),
                       ),
                       validator: (value) {
-                        if (value.isEmpty) {
+                        if (value.isEmpty || value == null) {
                           return 'Enter Year';
                         }
                         return null;
@@ -435,13 +435,15 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                                       side: BorderSide(color: Colors.black))),
                             ),
                             onPressed: () {
-                              _form.currentState.validate();
-                              addData(
+                              if (_form.currentState.validate()) {
+                                addData(
                                   activity_name.text,
                                   chooseType,
                                   chooseCategory,
                                   yearController.text,
                                   chooseSemester);
+                              }
+                              return Text("Fill up the fields");                            
                             },
                             child: Text(
                               'Generate QR',
