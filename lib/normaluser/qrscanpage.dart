@@ -1,14 +1,18 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fyp_app/normaluser/viewrecords.dart';
 //import 'package:fyp_app/homepage.dart';
 //import 'package:fyp_app/normaluser/contactus.dart';
 //import 'package:fyp_app/normaluser/password.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'normaluserpage.dart';
+//import 'normaluserpage.dart';
 import 'package:http/http.dart' as http;
 //import 'normaluserpage.dart';
-import 'viewrecords.dart';
+//import 'viewrecords.dart';
+import 'dart:async';
+import 'package:barcode_scan/barcode_scan.dart' as ScanResult;
 
 class QRScanPage extends StatefulWidget {
   @override
@@ -31,27 +35,36 @@ class _QRScanPageState extends State<QRScanPage> {
   int userID;
   Future getUserID() async {
     final sharedPreferences = await SharedPreferences.getInstance();
-    var obtainedToken = sharedPreferences.getString('ID');
+    var obtainedToken = sharedPreferences.getInt('ID');
     setState(() {
-      userID = obtainedToken as int;
+      userID = obtainedToken;
     });
   }
 
   void addData(String activityID) async {
     ///print("user_image:  $image");f
-    int actID = int.parse(activityID);
-    Map data = {'user_id': userID, 'activity_id': actID};
+    String uid = userID.toString();
+    //int actID = int.parse(activityID);
+
+    //Map data = {'user_id': uid, 'activity_id': activityID};
+
+    var data = new Map();
+
+    data['user_id'] = uid;
+    data['activity_id'] = activityID;
+
     Uri uri = Uri.parse("http://192.168.166.61:8000/api/participation");
     var response = await http.post(uri,
         headers: {
           'Authorization': 'Bearer $Value',
-          'Accept': 'application/json'
+          'Accept': 'application/json',
+          'Content_Type': 'multipart/form-data',
           //'Content-Type': 'application/json;charset=UTF-8'
         },
         body: data);
 
     // ignore: non_constant_identifier_names
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       Fluttertoast.showToast(
           msg: "Scan Done",
           toastLength: Toast.LENGTH_SHORT,
@@ -60,8 +73,6 @@ class _QRScanPageState extends State<QRScanPage> {
           backgroundColor: Colors.greenAccent,
           textColor: Colors.white,
           fontSize: 16.0);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => NormalUser()));
     } else {
       Fluttertoast.showToast(
           msg: "Unable to Scan",
@@ -76,27 +87,60 @@ class _QRScanPageState extends State<QRScanPage> {
 
   void initState() {
     getValidation();
+    getUserID();
     super.initState();
-      var options = ScanOptions(
-        autoEnableFlash: false,
-      );
-      var data = BarcodeScanner.scan(options: options);
-      setState(() {
-        qrData = data.toString();
-        hasdata = true;
-      });
   }
-   //bool scanned = false;
+
+  //bool scanned = false;
+  String result = "press the camera to start the scan !";
+  Future scanQR() async {
+    String result1;
+    try {
+      ScanResult.ScanResult qrScanResult = await BarcodeScanner.scan();
+      String qrResult = qrScanResult.rawContent;
+      result1 = qrResult;
+    } on PlatformException catch (ex) {
+      if (ex.code == BarcodeScanner.cameraAccessDenied) {
+        setState(() {
+          result = "Camera was denied";
+        });
+      } else {
+        setState(() {
+          result = "Unknown Error $ex";
+        });
+      }
+    } on FormatException {
+      setState(() {
+        result = "You pressed the back button before scanning anything";
+      });
+    } catch (ex) {
+      setState(() {
+        result = "Unknown Error $ex";
+      });
+    }
+    addData(result1);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ViewRecords(        
-        // if (!scanned) {
-        //   scanned = true;
-        //   Navigator.pop(
-        //     context,
-        //     MaterialPageRoute(builder: (context) => ViewRecords()),
-        //   );
-        // }  
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("QR Scanner"),
+      ),
+      body: Center(
+        child: Text(
+          result,
+          style: new TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+          icon: Icon(Icons.camera_alt),
+          label: Text("Scan"),
+          onPressed: () {
+            scanQR();
+
+            return ViewRecords();
+          }),
     );
   }
 }

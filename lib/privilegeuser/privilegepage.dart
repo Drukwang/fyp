@@ -24,7 +24,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
   TextEditingController mycontroller5 = TextEditingController();
   // ignore: unused_field
   String _dataString;
- 
+
   // ignore: non_constant_identifier_names
   String Value;
   String chooseType, chooseCategory, chooseSemester;
@@ -40,7 +40,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
   //   'year' : yearController.text
   // };
   // String userJson = jsonEncode(qrData);
-  
+
   Future getValidation() async {
     final sharedPreferences = await SharedPreferences.getInstance();
     var obtainedToken = sharedPreferences.getString('Token');
@@ -59,7 +59,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
       'activity_year': activityYear,
       'activity_semester': activitySemester
     };
-    Uri uri = Uri.parse("http://192.168.43.145:8000/api/activities");
+    Uri uri = Uri.parse("http://192.168.166.61:8000/api/activities");
     var response = await http.post(uri,
         headers: {
           'Authorization': 'Bearer $Value',
@@ -83,8 +83,10 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
       // if (jsonResponse != null) {
       //   return Activity.fromJson(jsonResponse);
       //   // Navigator.push(context, MaterialPageRoute(builder: (context) => MyHome()));
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => QRGenerated(self.id.toString())));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => QRGenerated(self.id.toString())));
       // }
     } else {
       throw Exception('Failed to create activity.');
@@ -437,13 +439,13 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                             onPressed: () {
                               if (_form.currentState.validate()) {
                                 addData(
-                                  activity_name.text,
-                                  chooseType,
-                                  chooseCategory,
-                                  yearController.text,
-                                  chooseSemester);
+                                    activity_name.text,
+                                    chooseType,
+                                    chooseCategory,
+                                    yearController.text,
+                                    chooseSemester);
                               }
-                              return Text("Fill up the fields");                            
+                              return Text("Fill up the fields");
                             },
                             child: Text(
                               'Generate QR',
@@ -466,4 +468,3 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
     );
   }
 }
-

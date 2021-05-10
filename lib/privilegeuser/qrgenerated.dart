@@ -11,10 +11,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-
 class QRGenerated extends StatefulWidget {
   final myQR;
   const QRGenerated(this.myQR);
+
   @override
   _QRGeneratedState createState() => _QRGeneratedState();
 }
@@ -25,9 +25,10 @@ class _QRGeneratedState extends State<QRGenerated> {
   String tutorial;
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
-        appBar: AppBar(
-          title: Text('QR Code',
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'QR Code',
           style: TextStyle(
             fontFamily: 'PTSerif',
             fontSize: 24,
@@ -35,107 +36,114 @@ class _QRGeneratedState extends State<QRGenerated> {
         ),
         centerTitle: true,
         backgroundColor: Colors.blue[600],
-        ),
-        body: Padding(
-          padding: EdgeInsets.only(left: 4),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[                            
-              RepaintBoundary(
-                key: _globalKey,
-                child: Container(                  
-                  margin: EdgeInsets.only(top: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.greenAccent,              
+      ),
+      body: Padding(
+        padding: EdgeInsets.only(left: 4),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            RepaintBoundary(
+              key: _globalKey,
+              child: Container(
+                margin: EdgeInsets.only(top: 10),
+                decoration: BoxDecoration(
+                  color: Colors.greenAccent,
                 ),
                 height: 300,
-                width: 300,                     
-                  child: QrImage(
-                    data: widget.myQR,
-                    //'{"title": "Dart Tutorial", "description": "Way to parse Json", "author": {"name": "bezkoder", "age": 30}}';
-                    //QRGenerated tutorial = QRGenerated.fromJson(jsonDecode(data)),
-                    version: QrVersions.auto,
-                    size: 250.0,
-                    gapless: false,
-                    //print(tutorial);
-                  ),
-                ),                
-              ),           
-             Row(
+                width: 300,
+                child: QrImage(
+                  data: widget.myQR,
+                  
+                  //'{"title": "Dart Tutorial", "description": "Way to parse Json", "author": {"name": "bezkoder", "age": 30}}';
+                  //QRGenerated tutorial = QRGenerated.fromJson(jsonDecode(data)),
+                  version: QrVersions.auto,
+                  size: 250.0,
+                  gapless: false,
+                  //print(tutorial);
+                ),
+              ),
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget> [
+              children: <Widget>[
                 Container(
-                    width: 180,
-                    height: 50,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(5,0,5,0),
-                      child: GestureDetector(
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
+                  width: 180,
+                  height: 50,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                    child: GestureDetector(
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.lightBlueAccent),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),
-                                side: BorderSide(color: Colors.black)
-                              ),
-                            ),                        
+                                side: BorderSide(color: Colors.black)),
                           ),
-                          onPressed:() async {
-                            RenderRepaintBoundary imageObject = _globalKey.currentContext.findRenderObject();
-                            final image = await imageObject.toImage(pixelRatio: 2);
-                            ByteData bytedata = await image.toByteData(format:ImageByteFormat.png);
-                            final pngBytes = bytedata.buffer.asUint8List();
-                            //final base64String = base64Encode(pngBytes);
-                            directory = await getExternalStorageDirectory();
-                            //Directory tempDir = await getApplicationDocumentsDirectory();
-                            String tempPath = directory.path;
-                            var file = File("$tempPath/filename.png");
-                            await file.writeAsBytes(pngBytes);
-                            Fluttertoast.showToast(  
-                              msg: 'Updated successfully',  
-                              toastLength: Toast.LENGTH_SHORT,  
-                              gravity: ToastGravity.BOTTOM,  
-                              textColor: Colors.black, 
-                            );
-                          },                         
-                          child: Text(
-                            'Save',
-                            style: TextStyle(
-                              fontFamily: 'PTSerif',
-                              fontSize: 20,
-                            ),
+                        ),
+                        onPressed: () async {
+                          RenderRepaintBoundary imageObject =
+                              _globalKey.currentContext.findRenderObject();
+                          final image =
+                              await imageObject.toImage(pixelRatio: 2);
+                          ByteData bytedata = await image.toByteData(
+                              format: ImageByteFormat.png);
+                          final pngBytes = bytedata.buffer.asUint8List();
+                          //final base64String = base64Encode(pngBytes);
+                          directory = await getExternalStorageDirectory();
+                          //Directory tempDir = await getApplicationDocumentsDirectory();
+                          String tempPath = directory.path;
+                          var file = File("$tempPath/filename.png");
+                          await file.writeAsBytes(pngBytes);
+                          Fluttertoast.showToast(
+                            msg: 'Updated successfully',
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            textColor: Colors.black,
+                          );
+                        },
+                        child: Text(
+                          'Save',
+                          style: TextStyle(
+                            fontFamily: 'PTSerif',
+                            fontSize: 20,
                           ),
                         ),
                       ),
                     ),
                   ),
+                ),
                 SizedBox(
                   width: 180,
                   height: 50,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(5,0,5,0),
+                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlueAccent),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            side: BorderSide(color: Colors.black)
-                          )
-                        ),                        
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            Colors.lightBlueAccent),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    side: BorderSide(color: Colors.black))),
                       ),
                       onPressed: () async {
-                        RenderRepaintBoundary imageobject = _globalKey.currentContext.findRenderObject();
-                        final image =  await imageobject.toImage(pixelRatio: 2);
-                        ByteData byteData = await image.toByteData(format: ImageByteFormat.png);
+                        RenderRepaintBoundary imageobject =
+                            _globalKey.currentContext.findRenderObject();
+                        final image = await imageobject.toImage(pixelRatio: 2);
+                        ByteData byteData =
+                            await image.toByteData(format: ImageByteFormat.png);
                         final pngBytes = byteData.buffer.asUint8List();
                         //final base64String = base64Encode(pngBytes);
 
                         await Share.file(
-                          'esys image', 'esys.png', pngBytes, 'image/png',
-                          text:'my optional');
-                      //_captureAndSharePng();
-                      },                        
+                            'esys image', 'esys.png', pngBytes, 'image/png',
+                            text: 'my optional');
+                        //_captureAndSharePng();
+                      },
                       child: Text(
                         'Share',
                         style: TextStyle(
@@ -145,13 +153,12 @@ class _QRGeneratedState extends State<QRGenerated> {
                       ),
                     ),
                   ),
-                ),                   
+                ),
               ],
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
-    }
+      ),
+    );
+  }
 }
-                       

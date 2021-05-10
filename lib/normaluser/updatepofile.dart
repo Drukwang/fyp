@@ -48,9 +48,9 @@ class _UpdatePofileState extends State<UpdatePofile> {
   int userID;
   Future getUserID() async {
     final sharedPreferences = await SharedPreferences.getInstance();
-    var obtainedToken = sharedPreferences.getString('ID');
+    var uid = sharedPreferences.getInt('ID');
     setState(() {
-      userID = int.parse(obtainedToken);
+      userID = uid;
     });
   }
 
@@ -103,36 +103,37 @@ class _UpdatePofileState extends State<UpdatePofile> {
   void addData(
     String name,
     course,
-    int studentNo,
+    studentNo,
   ) async {
-    Map data = {'name': name, 'course': course, 'student_no': studentNo};
+    //Map data = {'name': name, 'course': course, 'student_no': studentNo};
+
+    // var data = new Map();
+
+    // data['name'] = name;
+    // data['course'] = course;
+    // data['student_no'] = studentNo;
 
     ///print("user_image:  $image");f
-    Uri uri = Uri.parse("http://192.168.166.61:8000/api/update/userID");
-    var response = await http.put(uri,headers: {
+    Uri uri = Uri.parse("http://192.168.166.61:8000/api/update/$userID");
+    var response = await http.put(uri, headers: {
       'Authorization': 'Bearer $Value',
-      "Accept": "application/json",},
-      body: json.encode(data));
-        
-      //print('Response status : ${response.statusCode}');
-      //print('Response body : ${response.body}');
-      // ignore: non_constant_identifier_names
-      var JsonResponse = json.decode(response.body);
-      if (response.statusCode == 200) {
-        if (JsonResponse != null) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => ViewRecords()));
-          Fluttertoast.showToast(
-              msg: "Profile Updated",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.greenAccent,
-              textColor: Colors.white,
-              fontSize: 16.0);
-        }
-      } else {
+      "Accept": "application/json",
+    }, body: {
+      'name': name,
+      'course': course,
+      'student_no': studentNo,
+    });
+
+    //print('Response status : ${response.statusCode}');
+    //print('Response body : ${response.body}');
+    // ignore: non_constant_identifier_names
+    var JsonResponse = json.decode(response.body);
+    if (response.statusCode == 200) {
+      if (JsonResponse != null) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ViewRecords()));
         Fluttertoast.showToast(
-            msg: "Try Again",
+            msg: "Profile Updated",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
@@ -140,15 +141,27 @@ class _UpdatePofileState extends State<UpdatePofile> {
             textColor: Colors.white,
             fontSize: 16.0);
       }
+    } else {
+      Fluttertoast.showToast(
+          msg: "Try Again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.greenAccent,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
+  }
 
   @override
   void initState() {
     setState(() {});
 
     getValidation();
+    getUserID();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -273,7 +286,7 @@ class _UpdatePofileState extends State<UpdatePofile> {
                           enabledBorder: InputBorder.none,
                           errorBorder: InputBorder.none,
                           disabledBorder: InputBorder.none,
-                          labelText: 'Student Number',                          
+                          labelText: 'Student Number',
                           labelStyle: TextStyle(
                             fontFamily: 'PTSerif',
                             fontSize: 20,
@@ -368,7 +381,7 @@ class _UpdatePofileState extends State<UpdatePofile> {
                               addData(
                                 mycontroller1.text,
                                 valueChoose1,
-                                int.parse(mycontroller2.text),
+                                mycontroller2.text,
                               );
                             },
                             child: Text(
