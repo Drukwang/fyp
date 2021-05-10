@@ -1,7 +1,9 @@
 //import 'dart:convert';
+import 'dart:convert';
 import 'dart:io';
-//import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 //import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fyp_app/homepage.dart';
 import 'package:fyp_app/normaluser/contactus.dart';
@@ -43,11 +45,12 @@ class _UpdatePofileState extends State<UpdatePofile> {
     });
   }
 
+  int userID;
   Future getUserID() async {
     final sharedPreferences = await SharedPreferences.getInstance();
-    var userID = sharedPreferences.getInt('ID');
+    var obtainedToken = sharedPreferences.getString('ID');
     setState(() {
-      id = userID;
+      userID = int.parse(obtainedToken);
     });
   }
 
@@ -97,52 +100,47 @@ class _UpdatePofileState extends State<UpdatePofile> {
         });
   }
 
-  // void addData(
-  //   String name,
-  //   course,
-  //   int studentNo,
-  // ) async {
-  //   Map data = {'name': name, 'course': course, 'student_no': studentNo};
+  void addData(
+    String name,
+    course,
+    int studentNo,
+  ) async {
+    Map data = {'name': name, 'course': course, 'student_no': studentNo};
 
-  //   ///print("user_image:  $image");f
-  //   Uri uri = Uri.parse("http://192.168.166.61:8000/api/update/id");
-  //   http.put(uri, headers: {
-  //     'Authorization': 'Bearer $Value',
-  //     // "Accept": "application/json",
-  //     // 'Content_Type': 'multipart/form-data',
-  //   }, body: {
-  //     [data, id]
-
-  //     //"date": "$date",
-  //   }).then((response) {
-  //     //print('Response status : ${response.statusCode}');
-  //     //print('Response body : ${response.body}');
-  //     // ignore: non_constant_identifier_names
-  //     var JsonResponse = json.decode(response.body);
-  //     if (response.statusCode == 200) {
-  //       if (JsonResponse != null) {
-  //         // Navigator.push(context, MaterialPageRoute(builder: (context) => MyHome()));
-  //         return Fluttertoast.showToast(
-  //             msg: "Profile Updated",
-  //             toastLength: Toast.LENGTH_SHORT,
-  //             gravity: ToastGravity.CENTER,
-  //             timeInSecForIosWeb: 1,
-  //             backgroundColor: Colors.greenAccent,
-  //             textColor: Colors.white,
-  //             fontSize: 16.0);
-  //       }
-  //     } else {
-  //       return Fluttertoast.showToast(
-  //           msg: "Try Again",
-  //           toastLength: Toast.LENGTH_SHORT,
-  //           gravity: ToastGravity.CENTER,
-  //           timeInSecForIosWeb: 1,
-  //           backgroundColor: Colors.greenAccent,
-  //           textColor: Colors.white,
-  //           fontSize: 16.0);
-  //     }
-  //   });
-  // }
+    ///print("user_image:  $image");f
+    Uri uri = Uri.parse("http://192.168.166.61:8000/api/update/userID");
+    var response = await http.put(uri,headers: {
+      'Authorization': 'Bearer $Value',
+      "Accept": "application/json",},
+      body: json.encode(data));
+        
+      //print('Response status : ${response.statusCode}');
+      //print('Response body : ${response.body}');
+      // ignore: non_constant_identifier_names
+      var JsonResponse = json.decode(response.body);
+      if (response.statusCode == 200) {
+        if (JsonResponse != null) {
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => MyHome()));
+          Fluttertoast.showToast(
+              msg: "Profile Updated",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.greenAccent,
+              textColor: Colors.white,
+              fontSize: 16.0);
+        }
+      } else {
+        Fluttertoast.showToast(
+            msg: "Try Again",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.greenAccent,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
+    }
 
   @override
   void initState() {
@@ -422,11 +420,11 @@ class _UpdatePofileState extends State<UpdatePofile> {
                             ),
                             onPressed: () {
                               formKey.currentState.validate();
-                              // addData(
-                              //   mycontroller1.text,
-                              //   valueChoose1,
-                              //   int.parse(mycontroller2.text),
-                              // );
+                              addData(
+                                mycontroller1.text,
+                                valueChoose1,
+                                int.parse(mycontroller2.text),
+                              );
                             },
                             child: Text(
                               'Update',
