@@ -1,8 +1,14 @@
 //import 'dart:convert';
+import 'dart:convert';
 import 'dart:io';
-//import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:fyp_app/homepage.dart';
+//import 'package:fyp_app/normaluser/contactus.dart';
+//import 'package:fyp_app/normaluser/normaluserpage.dart';
+//import 'package:fyp_app/normaluser/password.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -39,11 +45,12 @@ class _UpdatePofileState extends State<UpdatePofile> {
     });
   }
 
+  int userID;
   Future getUserID() async {
     final sharedPreferences = await SharedPreferences.getInstance();
-    var userID = sharedPreferences.getInt('ID');
+    var uid = sharedPreferences.getInt('ID');
     setState(() {
-      id = userID;
+      userID = uid;
     });
   }
 
@@ -93,60 +100,68 @@ class _UpdatePofileState extends State<UpdatePofile> {
         });
   }
 
-  // void addData(
-  //   String name,
-  //   course,
-  //   int studentNo,
-  // ) async {
-  //   Map data = {'name': name, 'course': course, 'student_no': studentNo};
+  void addData(
+    String name,
+    course,
+    studentNo,
+  ) async {
+    //Map data = {'name': name, 'course': course, 'student_no': studentNo};
 
-  //   ///print("user_image:  $image");f
-  //   Uri uri = Uri.parse("http://192.168.166.61:8000/api/update/id");
-  //   http.put(uri, headers: {
-  //     'Authorization': 'Bearer $Value',
-  //     // "Accept": "application/json",
-  //     // 'Content_Type': 'multipart/form-data',
-  //   }, body: {
-  //     [data, id]
+    // var data = new Map();
 
-  //     //"date": "$date",
-  //   }).then((response) {
-  //     //print('Response status : ${response.statusCode}');
-  //     //print('Response body : ${response.body}');
-  //     // ignore: non_constant_identifier_names
-  //     var JsonResponse = json.decode(response.body);
-  //     if (response.statusCode == 200) {
-  //       if (JsonResponse != null) {
-  //         // Navigator.push(context, MaterialPageRoute(builder: (context) => MyHome()));
-  //         return Fluttertoast.showToast(
-  //             msg: "Profile Updated",
-  //             toastLength: Toast.LENGTH_SHORT,
-  //             gravity: ToastGravity.CENTER,
-  //             timeInSecForIosWeb: 1,
-  //             backgroundColor: Colors.greenAccent,
-  //             textColor: Colors.white,
-  //             fontSize: 16.0);
-  //       }
-  //     } else {
-  //       return Fluttertoast.showToast(
-  //           msg: "Try Again",
-  //           toastLength: Toast.LENGTH_SHORT,
-  //           gravity: ToastGravity.CENTER,
-  //           timeInSecForIosWeb: 1,
-  //           backgroundColor: Colors.greenAccent,
-  //           textColor: Colors.white,
-  //           fontSize: 16.0);
-  //     }
-  //   });
-  // }
+    // data['name'] = name;
+    // data['course'] = course;
+    // data['student_no'] = studentNo;
+
+    ///print("user_image:  $image");f
+    Uri uri = Uri.parse("http://192.168.166.61:8000/api/update/$userID");
+    var response = await http.put(uri, headers: {
+      'Authorization': 'Bearer $Value',
+      "Accept": "application/json",
+    }, body: {
+      'name': name,
+      'course': course,
+      'student_no': studentNo,
+    });
+
+    //print('Response status : ${response.statusCode}');
+    //print('Response body : ${response.body}');
+    // ignore: non_constant_identifier_names
+    var JsonResponse = json.decode(response.body);
+    if (response.statusCode == 200) {
+      if (JsonResponse != null) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ViewRecords()));
+        Fluttertoast.showToast(
+            msg: "Profile Updated",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.greenAccent,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
+    } else {
+      Fluttertoast.showToast(
+          msg: "Try Again",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.greenAccent,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
 
   @override
   void initState() {
     setState(() {});
 
     getValidation();
+    getUserID();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -271,7 +286,7 @@ class _UpdatePofileState extends State<UpdatePofile> {
                           enabledBorder: InputBorder.none,
                           errorBorder: InputBorder.none,
                           disabledBorder: InputBorder.none,
-                          labelText: 'Student Number',                          
+                          labelText: 'Student Number',
                           labelStyle: TextStyle(
                             fontFamily: 'PTSerif',
                             fontSize: 20,
@@ -363,25 +378,11 @@ class _UpdatePofileState extends State<UpdatePofile> {
                             ),
                             onPressed: () {
                               formKey.currentState.validate();
-                              // addData(
-                              //   mycontroller1.text,
-                              //   valueChoose1,
-                              //   int.parse(mycontroller2.text),
-                              // );
-                              bool updateded = false;
-                              if (!updateded) {
-                                updateded = true;
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => ViewRecords()),
-                                );
-                                Fluttertoast.showToast(  
-                                  msg: 'Updated successfully',  
-                                  toastLength: Toast.LENGTH_SHORT,  
-                                  gravity: ToastGravity.BOTTOM,  
-                                  textColor: Colors.black, 
-                                );
-                              }         
+                              addData(
+                                mycontroller1.text,
+                                valueChoose1,
+                                mycontroller2.text,
+                              );
                             },
                             child: Text(
                               'Update',

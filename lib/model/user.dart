@@ -9,7 +9,7 @@ class User {
   // ignore: non_constant_identifier_names
   final String course;
   // ignore: non_constant_identifier_names
-  final int student_no;
+  final String student_no;
   // ignore: non_constant_identifier_names
   final String role;
 
@@ -40,7 +40,7 @@ class User {
     // ignore: non_constant_identifier_names
     String course,
     // ignore: non_constant_identifier_names
-    int student_no,
+    String student_no,
     // ignore: non_constant_identifier_names
     String role,
   }) {
