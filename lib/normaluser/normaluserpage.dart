@@ -32,12 +32,6 @@ class _NormalUserState extends State<NormalUser> {
           ),
           ElevatedButton(child: Text("Yes"),
             onPressed: () => Navigator.pop(context, true),
-            // Navigator.of(context).pushAndRemoveUntil(
-            //   MaterialPageRoute(
-            //     builder: (BuildContext context) => HomePage(),
-            //   ),
-            //   (Route route) => false,
-            // ), 
           ),
         ]
       ));

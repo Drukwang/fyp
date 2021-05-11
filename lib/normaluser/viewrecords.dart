@@ -20,7 +20,7 @@ class _ViewRecordsState extends State<ViewRecords> {
             onPressed: () => Navigator.pop(context, false),
           ),
           ElevatedButton(child: Text("Yes"),
-            onPressed: () => //Navigator.pop(context, true),
+            onPressed: () => 
             Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
                 builder: (BuildContext context) => HomePage(),

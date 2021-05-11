@@ -1,14 +1,8 @@
-//import 'dart:convert';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-//import 'package:fluttertoast/fluttertoast.dart';
-//import 'package:fyp_app/homepage.dart';
-//import 'package:fyp_app/normaluser/contactus.dart';
-//import 'package:fyp_app/normaluser/normaluserpage.dart';
-//import 'package:fyp_app/normaluser/password.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -114,7 +108,7 @@ class _UpdatePofileState extends State<UpdatePofile> {
     // data['student_no'] = studentNo;
 
     ///print("user_image:  $image");f
-    Uri uri = Uri.parse("http://192.168.166.61:8000/api/update/$userID");
+    Uri uri = Uri.parse("http://10.2.25.233:8000/api/update/$userID");
     var response = await http.put(uri, headers: {
       'Authorization': 'Bearer $Value',
       "Accept": "application/json",
