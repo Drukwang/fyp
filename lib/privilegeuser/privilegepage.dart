@@ -1,6 +1,7 @@
 //import 'dart:convert';
 
 import 'package:fyp_app/model/activity.dart';
+import 'package:fyp_app/normaluser/contactus.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 //import 'package:fluttertoast/fluttertoast.dart';
@@ -92,6 +93,28 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
       throw Exception('Failed to create activity.');
     }
   }
+  Future<bool> _onBackPressed(){
+    return showDialog(
+      context: context,
+      builder: (context)=> AlertDialog(
+        title: Text("Do you really want to log out?"),
+        actions: <Widget>[
+          ElevatedButton(
+            child: Text("No"),
+            onPressed: () => Navigator.pop(context, false),
+          ),
+          ElevatedButton(child: Text("Yes"),
+            onPressed: () => 
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                builder: (BuildContext context) => HomePage(),
+              ),
+              (Route route) => false,
+            ), 
+          ),
+        ]
+      ));
+  }
 
   @override
   void initState() {
@@ -130,32 +153,30 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8),
                     child: ListTile(
-                      leading: Icon(Icons.person),
-                      title: Text('About Us',
-                          style: TextStyle(
-                            fontFamily: 'PTSerif',
-                            fontSize: 20,
-                          )),
-                    ),
+                    leading: Icon(Icons.person),
+                    title: Text('About Us',
+                        style: TextStyle(
+                          fontFamily: 'PTSerif',
+                          fontSize: 20,
+                        )),
+                        onTap: (){
+                          Navigator.push(
+                            context,  MaterialPageRoute(builder: (context) => ContactUs()),);
+                        },
+                  ),
                   ),
                   Divider(),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
-                    child: ListTile(
-                      leading: Icon(Icons.arrow_back),
-                      title: Text('Log Out',
-                          style: TextStyle(
-                            fontFamily: 'PTSerif',
-                            fontSize: 20,
-                          )),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomePage()),
-                        );
-                      },
-                    ),
-                  )
+                  ListTile(
+                    leading: Icon(Icons.logout),
+                    title: Text('Log Out',
+                      style: TextStyle(
+                        fontFamily: 'PTSerif',
+                        fontSize: 20,
+                      )),
+                    onTap: _onBackPressed,
+                  ),
+                    
+                  Divider(),
                 ],
               ),
             ),
@@ -226,6 +247,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
                     child: TextFormField(
                       showCursor: true,
                       controller: yearController,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         focusedBorder: InputBorder.none,

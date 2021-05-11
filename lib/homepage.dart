@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fyp_app/model/user.dart';
 import 'package:fyp_app/normaluser/normaluserpage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,6 +47,14 @@ class _HomePageState extends State<HomePage> {
     } else {
       setState(() {});
       print(response.body);
+      Fluttertoast.showToast(
+          msg: "Bad credentials",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.white,
+          textColor: Colors.black,
+          fontSize: 16.0);
     }
   }
   Future<bool> _onBackPressed(){
@@ -122,6 +131,7 @@ class _HomePageState extends State<HomePage> {
                         child: TextFormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           controller: emailController,
+                          keyboardType: TextInputType.emailAddress,
                           validator: EmailFieldValidator.validate,
                           onSaved: (val) => _email = val,
                           decoration: InputDecoration(

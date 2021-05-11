@@ -27,6 +27,7 @@ class _QRGeneratedState extends State<QRGenerated> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           'QR Code',
           style: TextStyle(
@@ -98,9 +99,10 @@ class _QRGeneratedState extends State<QRGenerated> {
                           var file = File("$tempPath/filename.png");
                           await file.writeAsBytes(pngBytes);
                           Fluttertoast.showToast(
-                            msg: 'Updated successfully',
+                            msg: 'Saved successfully',
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.BOTTOM,
+                            backgroundColor: Colors.white,
                             textColor: Colors.black,
                           );
                         },

@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fyp_app/normaluser/viewrecords.dart';
+import 'package:fyp_app/homepage.dart';
+import 'package:fyp_app/normaluser/contactus.dart';
+import 'package:fyp_app/normaluser/password.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:barcode_scan/barcode_scan.dart' as ScanResult;
@@ -47,7 +49,7 @@ class _QRScanPageState extends State<QRScanPage> {
     data['user_id'] = uid;
     data['activity_id'] = activityID;
 
-    Uri uri = Uri.parse("http://192.168.166.61:8000/api/participation");
+    Uri uri = Uri.parse("http://10.2.25.233:8000/api/participation");
     var response = await http.post(uri,
         headers: {
           'Authorization': 'Bearer $Value',
@@ -58,25 +60,33 @@ class _QRScanPageState extends State<QRScanPage> {
         body: data);
 
     // ignore: non_constant_identifier_names
-    if (response.statusCode == 201) {
+    if (response.statusCode == 404) {
       Fluttertoast.showToast(
           msg: "Scan Done",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.greenAccent,
-          textColor: Colors.white,
+          backgroundColor: Colors.white,
+          textColor: Colors.black,
           fontSize: 16.0);
-    } else {
+          setState(() {
+            
+          });
+          Navigator.push(
+          context, MaterialPageRoute(builder: (context) => QRScanPage()));
+     } else {
+       setState(() {
+        
+      });
       Fluttertoast.showToast(
           msg: "Unable to Scan",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.greenAccent,
-          textColor: Colors.white,
+          backgroundColor: Colors.white,
+          textColor: Colors.black,
           fontSize: 16.0);
-    }
+          Navigator.push(
+          context, MaterialPageRoute(builder: (context) => QRScanPage()));
+     }
   }
 
   void initState() {
@@ -86,7 +96,7 @@ class _QRScanPageState extends State<QRScanPage> {
   }
 
   //bool scanned = false;
-  String result = "press the camera to start the scan !";
+  String result = "Press the camera to start the scan !";
   Future scanQR() async {
     String result1;
     try {
@@ -114,19 +124,94 @@ class _QRScanPageState extends State<QRScanPage> {
     }
     addData(result1);
   }
-
+  Future<bool> _onBackPressed(){
+    return showDialog(
+      context: context,
+      builder: (context)=> AlertDialog(
+        title: Text("Do you really want to log out?"),
+        actions: <Widget>[
+          ElevatedButton(
+            child: Text("No"),
+            onPressed: () => Navigator.pop(context, false),
+          ),
+          ElevatedButton(child: Text("Yes"),
+            onPressed: () => 
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                builder: (BuildContext context) => HomePage(),
+              ),
+              (Route route) => false,
+            ), 
+          ),
+        ]
+      ));
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
+      appBar: AppBar(       
         title: Text("QR Scanner",
          style: TextStyle(
             fontFamily: 'PTSerif',
             fontSize: 24,
           ),
         ),
-        centerTitle: true,
+        centerTitle: true,        
+      ),
+       drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Column(
+                children: <Widget>[
+                  CircleAvatar(
+                    backgroundImage: AssetImage('assets/cstlogo.png'),
+                    radius: 60,
+                  ),
+                  Divider(),
+                  ListTile(
+                    leading: Icon(Icons.person),
+                    title: Text('About Us',
+                        style: TextStyle(
+                          fontFamily: 'PTSerif',
+                          fontSize: 20,
+                        )),
+                        onTap: (){
+                          Navigator.push(
+                            context,  MaterialPageRoute(builder: (context) => ContactUs()),);
+                        },
+                  ),
+                  Divider(),
+                  ListTile(
+                    leading: Icon(Icons.security),
+                    title: Text('Update Password',
+                        style: TextStyle(
+                          fontFamily: 'PTSerif',
+                          fontSize: 20,
+                        )),
+                        onTap: (){
+                          Navigator.push(
+                            context,  MaterialPageRoute(builder: (context) => PasswordUpdate()),);
+                        },
+                  ),
+                  Divider(),
+                  ListTile(
+                    leading: Icon(Icons.logout),
+                    title: Text('Log Out',
+                      style: TextStyle(
+                        fontFamily: 'PTSerif',
+                        fontSize: 20,
+                      )),
+                    onTap: _onBackPressed,
+                  ),
+                    
+                  Divider(),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
       body: Center(
         child: Text(
@@ -144,7 +229,7 @@ class _QRScanPageState extends State<QRScanPage> {
             onPressed: () {
               scanQR();
 
-              return ViewRecords();
+              return QRScanPage();
             }),
       ),
     );

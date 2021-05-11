@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fyp_app/normaluser/qrscanpage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -43,25 +44,25 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
     }).then((response) {
       // ignore: non_constant_identifier_names
       var JsonResponse = json.decode(response.body);
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         if (JsonResponse != null) {
-          return Fluttertoast.showToast(
-              msg: "${JsonResponse['msg']}",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.greenAccent,
-              textColor: Colors.white,
-              fontSize: 16.0);
+          Fluttertoast.showToast(
+            msg: "Password changed",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
+            fontSize: 16.0);
+          Navigator.pop(
+            context, MaterialPageRoute(builder: (context) => QRScanPage()));
         }
       } else {
-        return Fluttertoast.showToast(
-            msg: "${JsonResponse['msg']}",
+          return Fluttertoast.showToast(
+            msg: "Password does not match",
             toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.greenAccent,
-            textColor: Colors.white,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
             fontSize: 16.0);
       }
     });
@@ -201,7 +202,7 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
                         validator: (val) {
                           if (val.isEmpty) return 'Empty';
                           if (val != _newPassController.text)
-                            return 'new password doest not match';
+                            return 'password doest not match';
                           return null;
                         },
                         decoration: InputDecoration(

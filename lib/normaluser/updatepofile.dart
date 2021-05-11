@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/services.dart';
+import 'package:fyp_app/normaluser/qrscanpage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'viewrecords.dart';
 
 class UpdatePofile extends StatefulWidget {
   @override
@@ -117,32 +117,28 @@ class _UpdatePofileState extends State<UpdatePofile> {
       'course': course,
       'student_no': studentNo,
     });
-
-    //print('Response status : ${response.statusCode}');
-    //print('Response body : ${response.body}');
     // ignore: non_constant_identifier_names
     var JsonResponse = json.decode(response.body);
     if (response.statusCode == 200) {
-      if (JsonResponse != null) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ViewRecords()));
+      if (JsonResponse != null) {        
         Fluttertoast.showToast(
-            msg: "Profile Updated",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.greenAccent,
-            textColor: Colors.white,
-            fontSize: 16.0);
+          msg: "Profile Updated",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.white,
+          textColor: Colors.black,
+          fontSize: 16.0);
+        Navigator.push(
+          context, MaterialPageRoute(builder: (context) => QRScanPage()));
+        //Navigator.push(context, true);
       }
     } else {
       Fluttertoast.showToast(
-          msg: "Try Again",
+          msg: "Fail to update",
           toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.greenAccent,
-          textColor: Colors.white,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.white,
+          textColor: Colors.black,
           fontSize: 16.0);
     }
   }
@@ -229,6 +225,7 @@ class _UpdatePofileState extends State<UpdatePofile> {
                       child: TextFormField(
                         showCursor: true,
                         controller: mycontroller1,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: (val) {
                           if (val.isEmpty) return 'please enter your Name';
                           return null;
@@ -270,6 +267,8 @@ class _UpdatePofileState extends State<UpdatePofile> {
                       child: TextFormField(
                         showCursor: true,
                         controller: mycontroller2,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        keyboardType: TextInputType.number,
                         validator: (val) {
                           if (val.isEmpty) return 'please enter your std no.';
                           return null;
@@ -371,12 +370,20 @@ class _UpdatePofileState extends State<UpdatePofile> {
                                       side: BorderSide(color: Colors.black))),
                             ),
                             onPressed: () {
-                              formKey.currentState.validate();
-                              addData(
-                                mycontroller1.text,
-                                valueChoose1,
-                                mycontroller2.text,
-                              );
+                              if (formKey.currentState.validate()) {
+                                addData(
+                                  mycontroller1.text,
+                                  valueChoose1,
+                                  mycontroller2.text,
+                                );
+                              }
+                              // Fluttertoast.showToast(
+                              //   msg: "Fail to update",
+                              //   toastLength: Toast.LENGTH_SHORT,
+                              //   gravity: ToastGravity.BOTTOM,
+                              //   backgroundColor: Colors.white,
+                              //   textColor: Colors.black,
+                              //   fontSize: 16.0);                            
                             },
                             child: Text(
                               'Update',

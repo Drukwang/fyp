@@ -15,9 +15,9 @@ bool hasdata = false;
 class _NormalUserState extends State<NormalUser> {
   int _currentIndex = 1;
   final List<Widget> _children = [
-    UpdatePofile(),
-    ViewRecords(),
+    UpdatePofile(),    
     QRScanPage(),
+    ViewRecords(),
   ];
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   Future<bool> _onBackPressed(){
@@ -48,22 +48,21 @@ class _NormalUserState extends State<NormalUser> {
         },
        
        items: [
-         BottomNavigationBarItem(
-           icon: Icon(Icons.person_add),
-           label: 'Manage Profile',
-         ),
-        
-         BottomNavigationBarItem(
-           icon: Icon(Icons.collections_bookmark),
-           label: 'Records',
-         ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_add),
+            label: 'Manage Profile',
+          ), 
           BottomNavigationBarItem(
            icon: Image.asset('assets/scan-image.png',
             height: 30,
             width: 30,
            ),
            label: 'Scan',
-         ),
+         ),       
+          BottomNavigationBarItem(
+            icon: Icon(Icons.collections_bookmark),
+            label: 'Records',
+          ),          
        ],       
      ),
       body: WillPopScope(onWillPop: _onBackPressed, child: _children[_currentIndex],),

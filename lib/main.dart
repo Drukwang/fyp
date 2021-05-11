@@ -41,23 +41,22 @@ class _MyAppState extends State<MyApp> {
           Container(
             child: Image(
               image: AssetImage('assets/cstlogo.png'),
-              width: 150,
-              height: 150,
+              width: 200,
+              height: 200,
               alignment: Alignment.bottomCenter,
             ),
             alignment: Alignment.bottomCenter,
-          ),
-          SizedBox(
-            width: 20.0,
-            
-          ),
-          Text(
-            'Student Activity Record System',
-            style: TextStyle(
-              fontFamily: 'PTSerif',
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
+          ),          
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: Text(
+              'Student Activity Record System',
+              style: TextStyle(
+                fontFamily: 'PTSerif',
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
           ),
         ],

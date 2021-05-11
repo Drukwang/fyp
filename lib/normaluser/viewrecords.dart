@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fyp_app/homepage.dart';
-import 'package:fyp_app/normaluser/contactus.dart';
-import 'package:fyp_app/normaluser/password.dart';
 
 class ViewRecords extends StatefulWidget {
   @override
@@ -9,32 +6,12 @@ class ViewRecords extends StatefulWidget {
 }
 
 class _ViewRecordsState extends State<ViewRecords> {
-  Future<bool> _onBackPressed(){
-    return showDialog(
-      context: context,
-      builder: (context)=> AlertDialog(
-        title: Text("Do you really want to log out?"),
-        actions: <Widget>[
-          ElevatedButton(
-            child: Text("No"),
-            onPressed: () => Navigator.pop(context, false),
-          ),
-          ElevatedButton(child: Text("Yes"),
-            onPressed: () => 
-            Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(
-                builder: (BuildContext context) => HomePage(),
-              ),
-              (Route route) => false,
-            ), 
-          ),
-        ]
-      ));
-  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+         automaticallyImplyLeading: false,
         backgroundColor: Colors.blueAccent,
         title: Text(
           'Your Records',
@@ -44,87 +21,159 @@ class _ViewRecordsState extends State<ViewRecords> {
           ),
         ),
         centerTitle: true,
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: Column(
-                children: <Widget>[
-                  CircleAvatar(
-                    backgroundImage: AssetImage('assets/cstlogo.png'),
-                    radius: 60,
-                  ),
-                  Divider(),
-                  ListTile(
-                    leading: Icon(Icons.person),
-                    title: Text('About Us',
-                        style: TextStyle(
-                          fontFamily: 'PTSerif',
-                          fontSize: 20,
-                        )),
-                        onTap: (){
-                          Navigator.push(
-                            context,  MaterialPageRoute(builder: (context) => ContactUs()),);
-                        },
-                  ),
-                  Divider(),
-                  ListTile(
-                    leading: Icon(Icons.security),
-                    title: Text('Update Password',
-                        style: TextStyle(
-                          fontFamily: 'PTSerif',
-                          fontSize: 20,
-                        )),
-                        onTap: (){
-                          Navigator.push(
-                            context,  MaterialPageRoute(builder: (context) => PasswordUpdate()),);
-                        },
-                  ),
-                  Divider(),
-                  ListTile(
-                    leading: Icon(Icons.logout),
-                    title: Text('Log Out',
-                      style: TextStyle(
-                        fontFamily: 'PTSerif',
-                        fontSize: 20,
-                      )),
-                    onTap: _onBackPressed,
-                  ),
-                    
-                  Divider(),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-      body: ListView(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 30, 0, 0),
-            child: ListTile(
-              focusColor: Colors.amberAccent,
-                  leading: CircleAvatar(
-                    radius: 30,
-                    child: Icon(Icons.person),
-                  ),
-                  title: Text('Drukwang Norbu',
-                    style: TextStyle(
-                        fontSize: 20,
+      ),     
+       body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30), // if you need this
+                      side: BorderSide(
+                        color: Colors.grey.withOpacity(0.8),
+                        width: 1,
                       ),
+                    ),
+                    child: Container(
+                      width: 500,
+                      height: 130,
+                    ),
                   ),
-                  subtitle: Text('0217508.cst@ub.edu.bt'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30), // if you need this
+                      side: BorderSide(
+                        color: Colors.grey.withOpacity(0.8),
+                        width: 1,
+                      ),
+                    ),
+                    child: Container(
+                      width: 500,
+                      height: 130,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30), // if you need this
+                      side: BorderSide(
+                        color: Colors.grey.withOpacity(0.8),
+                        width: 1,
+                      ),
+                    ),
+                    child: Container(
+                      width: 500,
+                      height: 130,
+                    ),
+                  ),
+                ),Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30), // if you need this
+                      side: BorderSide(
+                        color: Colors.grey.withOpacity(0.8),
+                        width: 1,
+                      ),
+                    ),
+                    child: Container(
+                      width: 500,
+                      height: 130,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30), // if you need this
+                      side: BorderSide(
+                        color: Colors.grey.withOpacity(0.8),
+                        width: 1,
+                      ),
+                    ),
+                    child: Container(
+                      width: 500,
+                      height: 130,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30), // if you need this
+                      side: BorderSide(
+                        color: Colors.grey.withOpacity(0.8),
+                        width: 1,
+                      ),
+                    ),
+                    child: Container(
+                      width: 500,
+                      height: 130,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30), // if you need this
+                      side: BorderSide(
+                        color: Colors.grey.withOpacity(0.8),
+                        width: 1,
+                      ),
+                    ),
+                    child: Container(
+                      width: 500,
+                      height: 130,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30), // if you need this
+                      side: BorderSide(
+                        color: Colors.grey.withOpacity(0.8),
+                        width: 1,
+                      ),
+                    ),
+                    child: Container(
+                      width: 500,
+                      height: 130,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30), // if you need this
+                      side: BorderSide(
+                        color: Colors.grey.withOpacity(0.8),
+                        width: 1,
+                      ),
+                    ),
+                    child: Container(
+                      width: 500,
+                      height: 130,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-          Container(
-            color: Colors.amberAccent,
-            height: 500,
-            width: 300,
-          )
-        ],
-      ),
+          )  
+        ) 
     );
   }
 }
