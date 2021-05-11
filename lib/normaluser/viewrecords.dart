@@ -13,7 +13,7 @@ class _ViewRecordsState extends State<ViewRecords> {
     return showDialog(
       context: context,
       builder: (context)=> AlertDialog(
-        title: Text("Do you really want to exit?"),
+        title: Text("Do you really want to log out?"),
         actions: <Widget>[
           ElevatedButton(
             child: Text("No"),

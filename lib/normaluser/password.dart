@@ -31,7 +31,7 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
 
   void addData(String oldPassword, newPassword, confirmPassword) async {
     ///print("user_image:  $image");f
-    Uri uri = Uri.parse("http://192.168.166.61:8000/api/change-password");
+    Uri uri = Uri.parse("http://10.2.25.233:8000/api/change-password");
     http.post(uri, headers: {
       'Authorization': 'Bearer $Value',
       "Accept": "application/json",
@@ -40,16 +40,11 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
       "old_password": "$oldPassword",
       "new_password": "$newPassword",
       "confirm_password": "$confirmPassword",
-
-      //"date": "$date",
     }).then((response) {
-      //print('Response status : ${response.statusCode}');
-      //print('Response body : ${response.body}');
       // ignore: non_constant_identifier_names
       var JsonResponse = json.decode(response.body);
       if (response.statusCode == 201) {
         if (JsonResponse != null) {
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => MyHome()));
           return Fluttertoast.showToast(
               msg: "${JsonResponse['msg']}",
               toastLength: Toast.LENGTH_SHORT,
@@ -113,6 +108,7 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         showCursor: true,
                         obscureText: _isHidden,
                         controller: _prePassController,
@@ -155,6 +151,7 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         showCursor: true,
                         obscureText: _isHidden1,
                         controller: _newPassController,
@@ -197,6 +194,7 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: TextFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         showCursor: true,
                         obscureText: _isHidden2,
                         controller: _newConfirmPassController,

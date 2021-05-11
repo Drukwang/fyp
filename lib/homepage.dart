@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     Map data = {'email': email, 'password': pass};
     var jsonResponse;
-    var response = await http.post("http://192.168.43.145:8000/api/login",
+    var response = await http.post("http://10.2.25.233:8000/api/login",
         headers: {'Accept': 'application/json'}, body: data);
     jsonResponse = json.decode(response.body);
     if (response.statusCode == 200) {
@@ -70,6 +70,10 @@ class _HomePageState extends State<HomePage> {
         ]
       ));
   }
+  // ignore: unused_field
+  String _email;
+  // ignore: unused_field
+  String _password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +81,6 @@ class _HomePageState extends State<HomePage> {
         onWillPop: _onBackPressed,
               child: SingleChildScrollView(
           child: Form(
-            autovalidateMode: AutovalidateMode.onUserInteraction,
             key: _form,
             child: Container(
               width: 500,
@@ -117,11 +120,10 @@ class _HomePageState extends State<HomePage> {
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                         child: TextFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           controller: emailController,
-                          validator: (val) {
-                            if (val.isEmpty) return 'please enter emailID';
-                            return null;
-                          },
+                          validator: EmailFieldValidator.validate,
+                          onSaved: (val) => _email = val,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             focusedBorder: InputBorder.none,
@@ -150,12 +152,11 @@ class _HomePageState extends State<HomePage> {
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                         child: TextFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           controller: passwordController,
                           obscureText: _isHidden,
-                          validator: (val) {
-                            if (val.isEmpty) return 'please enter the password';
-                            return null;
-                          },
+                          validator: PasswordFieldValidator.validate,
+                           onSaved: (val) => _password = val,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             focusedBorder: InputBorder.none,
@@ -223,5 +224,15 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _isHidden = !_isHidden;
     });
+  }
+}
+class EmailFieldValidator{
+  static String validate(String val){
+    return val.isEmpty ? 'Email can\'t be empty' :null;
+  }
+}
+class PasswordFieldValidator{
+  static String validate(String val){
+    return val.isEmpty ? 'Password can\'t be empty' :null;
   }
 }
