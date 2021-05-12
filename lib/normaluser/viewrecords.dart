@@ -1,4 +1,13 @@
+//import 'dart:convert';
+//import 'dart:convert';
+import 'package:fyp_app/model/participation.dart';
 import 'package:flutter/material.dart';
+import 'package:fyp_app/normaluser/viewrecordBloc.dart';
+//import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:fyp_app/normaluser/qrscanpage.dart';
+//import 'package:fyp_app/model/participation.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:http/http.dart' as http;
 
 class ViewRecords extends StatefulWidget {
   @override
@@ -6,12 +15,19 @@ class ViewRecords extends StatefulWidget {
 }
 
 class _ViewRecordsState extends State<ViewRecords> {
-  
+  final getUserActivity = viewrecordBloc();
+
+  @override
+  void initState() {
+    getUserActivity.eventSink.add(getActivity.Fetch);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-         automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.blueAccent,
         title: Text(
           'Your Records',
@@ -21,159 +37,44 @@ class _ViewRecordsState extends State<ViewRecords> {
           ),
         ),
         centerTitle: true,
-      ),     
-       body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30), // if you need this
-                      side: BorderSide(
-                        color: Colors.grey.withOpacity(0.8),
-                        width: 1,
-                      ),
-                    ),
-                    child: Container(
-                      width: 500,
-                      height: 130,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30), // if you need this
-                      side: BorderSide(
-                        color: Colors.grey.withOpacity(0.8),
-                        width: 1,
-                      ),
-                    ),
-                    child: Container(
-                      width: 500,
-                      height: 130,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30), // if you need this
-                      side: BorderSide(
-                        color: Colors.grey.withOpacity(0.8),
-                        width: 1,
-                      ),
-                    ),
-                    child: Container(
-                      width: 500,
-                      height: 130,
-                    ),
-                  ),
-                ),Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30), // if you need this
-                      side: BorderSide(
-                        color: Colors.grey.withOpacity(0.8),
-                        width: 1,
-                      ),
-                    ),
-                    child: Container(
-                      width: 500,
-                      height: 130,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30), // if you need this
-                      side: BorderSide(
-                        color: Colors.grey.withOpacity(0.8),
-                        width: 1,
-                      ),
-                    ),
-                    child: Container(
-                      width: 500,
-                      height: 130,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30), // if you need this
-                      side: BorderSide(
-                        color: Colors.grey.withOpacity(0.8),
-                        width: 1,
-                      ),
-                    ),
-                    child: Container(
-                      width: 500,
-                      height: 130,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30), // if you need this
-                      side: BorderSide(
-                        color: Colors.grey.withOpacity(0.8),
-                        width: 1,
-                      ),
-                    ),
-                    child: Container(
-                      width: 500,
-                      height: 130,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30), // if you need this
-                      side: BorderSide(
-                        color: Colors.grey.withOpacity(0.8),
-                        width: 1,
-                      ),
-                    ),
-                    child: Container(
-                      width: 500,
-                      height: 130,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30), // if you need this
-                      side: BorderSide(
-                        color: Colors.grey.withOpacity(0.8),
-                        width: 1,
-                      ),
-                    ),
-                    child: Container(
-                      width: 500,
-                      height: 130,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )  
-        ) 
+      ),
+      body: Center(
+          child: StreamBuilder<List<Activity>>(
+              stream: getUserActivity.pendingStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Center(child: Text(snapshot.error ?? 'Error'));
+                }
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                      itemCount: snapshot.data.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        var article = snapshot.data[index];
+                        return Card(
+                          clipBehavior: Clip.antiAlias,
+                          elevation: 1,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          child: Column(children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ListTile(
+                                leading: Text(
+                                    "Activity Name: ${article.activityName}"),
+                                title: Text("Year: ${article.activityYear}"),
+                                subtitle: Text(
+                                    "Semester: ${article.activitySemester}"),
+                              ),
+                            ),
+                          ]),
+                        );
+                      });
+                } else
+                  return Center(child: CircularProgressIndicator());
+              })),
     );
   }
 }

@@ -49,7 +49,7 @@ class _QRScanPageState extends State<QRScanPage> {
     data['user_id'] = uid;
     data['activity_id'] = activityID;
 
-    Uri uri = Uri.parse("http://10.2.25.233:8000/api/participation");
+    Uri uri = Uri.parse("http://192.168.173.61:8000/api/participation");
     var response = await http.post(uri,
         headers: {
           'Authorization': 'Bearer $Value',
@@ -60,7 +60,7 @@ class _QRScanPageState extends State<QRScanPage> {
         body: data);
 
     // ignore: non_constant_identifier_names
-    if (response.statusCode == 404) {
+    if (response.statusCode == 201) {
       Fluttertoast.showToast(
           msg: "Scan Done",
           toastLength: Toast.LENGTH_SHORT,

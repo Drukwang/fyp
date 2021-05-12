@@ -60,7 +60,7 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
       'activity_year': activityYear,
       'activity_semester': activitySemester
     };
-    Uri uri = Uri.parse("http://10.2.25.233:8000/api/activities");
+    Uri uri = Uri.parse("http://192.168.173.61:8000/api/activities");
     var response = await http.post(uri,
         headers: {
           'Authorization': 'Bearer $Value',

@@ -108,7 +108,7 @@ class _UpdatePofileState extends State<UpdatePofile> {
     // data['student_no'] = studentNo;
 
     ///print("user_image:  $image");f
-    Uri uri = Uri.parse("http://10.2.25.233:8000/api/update/$userID");
+    Uri uri = Uri.parse("http://192.168.173.61:8000/api/update/$userID");
     var response = await http.put(uri, headers: {
       'Authorization': 'Bearer $Value',
       "Accept": "application/json",

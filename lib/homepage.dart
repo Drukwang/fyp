@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     Map data = {'email': email, 'password': pass};
     var jsonResponse;
-    var response = await http.post("http://10.2.25.233:8000/api/login",
+    var response = await http.post("http://192.168.173.61:8000/api/login",
         headers: {'Accept': 'application/json'}, body: data);
     jsonResponse = json.decode(response.body);
     if (response.statusCode == 200) {

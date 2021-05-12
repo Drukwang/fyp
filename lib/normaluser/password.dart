@@ -32,7 +32,7 @@ class _PasswordUpdateState extends State<PasswordUpdate> {
 
   void addData(String oldPassword, newPassword, confirmPassword) async {
     ///print("user_image:  $image");f
-    Uri uri = Uri.parse("http://10.2.25.233:8000/api/change-password");
+    Uri uri = Uri.parse("http://192.168.173.61:8000/api/change-password");
     http.post(uri, headers: {
       'Authorization': 'Bearer $Value',
       "Accept": "application/json",
