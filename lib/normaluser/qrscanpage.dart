@@ -10,6 +10,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:barcode_scan/barcode_scan.dart' as ScanResult;
 
+import 'normaluserpage.dart';
+
 class QRScanPage extends StatefulWidget {
   @override
   _QRScanPageState createState() => _QRScanPageState();
@@ -72,7 +74,7 @@ class _QRScanPageState extends State<QRScanPage> {
             
           });
           Navigator.push(
-          context, MaterialPageRoute(builder: (context) => QRScanPage()));
+          context, MaterialPageRoute(builder: (context) => NormalUser()));
      } else {
        setState(() {
         
@@ -85,7 +87,7 @@ class _QRScanPageState extends State<QRScanPage> {
           textColor: Colors.black,
           fontSize: 16.0);
           Navigator.push(
-          context, MaterialPageRoute(builder: (context) => QRScanPage()));
+          context, MaterialPageRoute(builder: (context) => NormalUser()));
      }
   }
 

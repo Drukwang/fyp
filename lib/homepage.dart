@@ -9,6 +9,7 @@ import 'package:fyp_app/privilegeuser/privilegepage.dart';
 import 'package:http/http.dart' as http;
 import 'normaluser/normaluserpage.dart';
 import 'privilegeuser/privilegepage.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -32,6 +33,8 @@ class _HomePageState extends State<HomePage> {
         setState(() {});
         sharedPreferences.setString('Token', jsonResponse['token']);
         sharedPreferences.setInt('ID', jsonResponse['id']);
+        sharedPreferences.setString('email', jsonResponse['email']);
+       
         if (user.role == "student") {
           Navigator.push(
             context,
@@ -57,28 +60,30 @@ class _HomePageState extends State<HomePage> {
           fontSize: 16.0);
     }
   }
-  Future<bool> _onBackPressed(){
+
+  Future<bool> _onBackPressed() {
     return showDialog(
-      context: context,
-      builder: (context)=> AlertDialog(
-        title: Text("Do you really want to leave?"),
-        actions: <Widget>[
-          ElevatedButton(
-            child: Text("No"),
-            onPressed: () => Navigator.pop(context, false),
-          ),
-          ElevatedButton(child: Text("Yes"),
-            onPressed: () => //Navigator.pop(context, true),
-            Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(
-                builder: (BuildContext context) => exit(0),
-              ),
-              (Route route) => false,
-            ), 
-          ),
-        ]
-      ));
+        context: context,
+        builder: (context) => AlertDialog(
+                title: Text("Do you really want to leave?"),
+                actions: <Widget>[
+                  ElevatedButton(
+                    child: Text("No"),
+                    onPressed: () => Navigator.pop(context, false),
+                  ),
+                  ElevatedButton(
+                    child: Text("Yes"),
+                    onPressed: () => //Navigator.pop(context, true),
+                        Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => exit(0),
+                      ),
+                      (Route route) => false,
+                    ),
+                  ),
+                ]));
   }
+
   // ignore: unused_field
   String _email;
   // ignore: unused_field
@@ -88,7 +93,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: WillPopScope(
         onWillPop: _onBackPressed,
-              child: SingleChildScrollView(
+        child: SingleChildScrollView(
           child: Form(
             key: _form,
             child: Container(
@@ -166,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                           controller: passwordController,
                           obscureText: _isHidden,
                           validator: PasswordFieldValidator.validate,
-                           onSaved: (val) => _password = val,
+                          onSaved: (val) => _password = val,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             focusedBorder: InputBorder.none,
@@ -236,13 +241,15 @@ class _HomePageState extends State<HomePage> {
     });
   }
 }
-class EmailFieldValidator{
-  static String validate(String val){
-    return val.isEmpty ? 'Email can\'t be empty' :null;
+
+class EmailFieldValidator {
+  static String validate(String val) {
+    return val.isEmpty ? 'Email can\'t be empty' : null;
   }
 }
-class PasswordFieldValidator{
-  static String validate(String val){
-    return val.isEmpty ? 'Password can\'t be empty' :null;
+
+class PasswordFieldValidator {
+  static String validate(String val) {
+    return val.isEmpty ? 'Password can\'t be empty' : null;
   }
 }

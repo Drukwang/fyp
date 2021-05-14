@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/services.dart';
-import 'package:fyp_app/normaluser/qrscanpage.dart';
+import 'package:fyp_app/normaluser/normaluserpage.dart';
+//import 'package:fyp_app/normaluser/qrscanpage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -28,6 +29,7 @@ class _UpdatePofileState extends State<UpdatePofile> {
   TextEditingController mycontroller2 = new TextEditingController();
   int id;
   File _image;
+
   // ignore: non_constant_identifier_names
   String Value;
 
@@ -99,15 +101,7 @@ class _UpdatePofileState extends State<UpdatePofile> {
     course,
     studentNo,
   ) async {
-    //Map data = {'name': name, 'course': course, 'student_no': studentNo};
-
-    // var data = new Map();
-
-    // data['name'] = name;
-    // data['course'] = course;
-    // data['student_no'] = studentNo;
-
-    ///print("user_image:  $image");f
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     Uri uri = Uri.parse("http://192.168.173.61:8000/api/update/$userID");
     var response = await http.put(uri, headers: {
       'Authorization': 'Bearer $Value',
@@ -120,16 +114,20 @@ class _UpdatePofileState extends State<UpdatePofile> {
     // ignore: non_constant_identifier_names
     var JsonResponse = json.decode(response.body);
     if (response.statusCode == 200) {
-      if (JsonResponse != null) {        
+      if (JsonResponse != null) {
+        setState(() {});
+        sharedPreferences.setString('sno', JsonResponse['student_no']);
+        sharedPreferences.setString('name', JsonResponse['name']);
+
         Fluttertoast.showToast(
-          msg: "Profile Updated",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.white,
-          textColor: Colors.black,
-          fontSize: 16.0);
+            msg: "Profile Updated",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Colors.white,
+            textColor: Colors.black,
+            fontSize: 16.0);
         Navigator.push(
-          context, MaterialPageRoute(builder: (context) => QRScanPage()));
+            context, MaterialPageRoute(builder: (context) => NormalUser()));
         //Navigator.push(context, true);
       }
     } else {
@@ -383,7 +381,7 @@ class _UpdatePofileState extends State<UpdatePofile> {
                               //   gravity: ToastGravity.BOTTOM,
                               //   backgroundColor: Colors.white,
                               //   textColor: Colors.black,
-                              //   fontSize: 16.0);                            
+                              //   fontSize: 16.0);
                             },
                             child: Text(
                               'Update',
