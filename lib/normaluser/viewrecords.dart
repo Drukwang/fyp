@@ -72,12 +72,32 @@ class _ViewRecordsState extends State<ViewRecords> {
       body: Column(
         children: [
           Card(
-            child: SizedBox(
+            color: Colors.grey[400],
+            child: Container(
+              width: 500,
               child: Column(
                 children: [
-                  Text(email ?? 'default value'),
-                  Text(name ?? 'default value'),
-                  Text(sno ?? 'default value'),
+                  Text(
+                    email ?? 'default value',
+                    style: TextStyle(
+                      fontFamily: 'PTSerif',
+                      fontSize: 24,
+                    ),
+                  ),
+                  Text(
+                    name ?? 'default value',
+                    style: TextStyle(
+                      fontFamily: 'PTSerif',
+                      fontSize: 24,
+                    ),
+                  ),
+                  Text(
+                    sno ?? 'default value',
+                    style: TextStyle(
+                      fontFamily: 'PTSerif',
+                      fontSize: 24,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -96,25 +116,49 @@ class _ViewRecordsState extends State<ViewRecords> {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             var article = snapshot.data[index];
-                            return Card(
-                              clipBehavior: Clip.antiAlias,
-                              elevation: 1,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(24),
-                              ),
-                              child: Column(children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: ListTile(
-                                    leading: Text(
-                                        "Activity Name: ${article.activityName}"),
-                                    title:
-                                        Text("Year: ${article.activityYear}"),
-                                    subtitle: Text(
-                                        "Semester: ${article.activitySemester}"),
-                                  ),
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Card(
+                                clipBehavior: Clip.antiAlias,
+                                elevation: 1,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(24),
                                 ),
-                              ]),
+                                child: Column(children: [
+                                  Text(
+                                    "Activity Name: ${article.activityName}",
+                                    style: TextStyle(
+                                      fontFamily: 'PTSerif',
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Year: ${article.activityYear}",
+                                    style: TextStyle(
+                                      fontFamily: 'PTSerif',
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  Text(
+                                    "Semester: ${article.activitySemester}",
+                                    style: TextStyle(
+                                      fontFamily: 'PTSerif',
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.all(8.0),
+                                  //   child: ListTile(
+                                  //     leading: Text(
+                                  //         "Activity Name: ${article.activityName}"),
+                                  //     title:
+                                  //         Text("Year: ${article.activityYear}"),
+                                  //     subtitle: Text(
+                                  //         "Semester: ${article.activitySemester}"),
+                                  //   ),
+                                  // ),
+                                ]),
+                              ),
                             );
                           });
                     } else

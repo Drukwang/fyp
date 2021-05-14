@@ -131,6 +131,10 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
 
   @override
   Widget build(BuildContext context) {
+    final _height = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).padding.top -
+        kToolbarHeight;
+    final _width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
@@ -191,8 +195,8 @@ class _PrivilegeActivityState extends State<PrivilegeActivity> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          height: 700,
-          width: 400,
+          height: _height * 1,
+          width: _width * 1,
           margin: EdgeInsets.fromLTRB(10, 0.0, 10, 0.0),
           padding: EdgeInsets.only(bottom: 30),
           child: Form(

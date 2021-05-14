@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
         sharedPreferences.setString('Token', jsonResponse['token']);
         sharedPreferences.setInt('ID', jsonResponse['id']);
         sharedPreferences.setString('email', jsonResponse['email']);
-       
+
         if (user.role == "student") {
           Navigator.push(
             context,
@@ -90,6 +90,10 @@ class _HomePageState extends State<HomePage> {
   String _password;
   @override
   Widget build(BuildContext context) {
+    final _height = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).padding.top -
+        kToolbarHeight;
+    final _width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: WillPopScope(
         onWillPop: _onBackPressed,
@@ -97,8 +101,8 @@ class _HomePageState extends State<HomePage> {
           child: Form(
             key: _form,
             child: Container(
-              width: 500,
-              height: 600,
+              width: _width * 1,
+              height: _height * 0.9,
               margin: EdgeInsets.fromLTRB(0.0, 120.0, 0.0, 0.0),
               padding: EdgeInsets.all(5),
               alignment: Alignment.center,

@@ -12,60 +12,65 @@ class NormalUser extends StatefulWidget {
 String qrData = "No data found!";
 var data;
 bool hasdata = false;
+
 class _NormalUserState extends State<NormalUser> {
   int _currentIndex = 1;
   final List<Widget> _children = [
-    UpdatePofile(),    
+    UpdatePofile(),
     QRScanPage(),
     ViewRecords(),
   ];
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  Future<bool> _onBackPressed(){
+  Future<bool> _onBackPressed() {
     return showDialog(
-      context: context,
-      builder: (context)=> AlertDialog(
-        title: Text("Do you really want to exit?"),
-        actions: <Widget>[
-          ElevatedButton(
-            child: Text("No"),
-            onPressed: () => Navigator.pop(context, false),
-          ),
-          ElevatedButton(child: Text("Yes"),
-            onPressed: () => Navigator.pop(context, true),
-          ),
-        ]
-      ));
+        context: context,
+        builder: (context) => AlertDialog(
+                title: Text("Do you really want to exit?"),
+                actions: <Widget>[
+                  ElevatedButton(
+                    child: Text("No"),
+                    onPressed: () => Navigator.pop(context, false),
+                  ),
+                  ElevatedButton(
+                    child: Text("Yes"),
+                    onPressed: () => Navigator.pop(context, true),
+                  ),
+                ]));
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-       onTap:(index){
+        onTap: (index) {
           setState(() {
             _currentIndex = index;
           });
         },
-       
-       items: [
+        items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.person_add),
             label: 'Manage Profile',
-          ), 
+          ),
           BottomNavigationBarItem(
-           icon: Image.asset('assets/scan-image.png',
-            height: 30,
-            width: 30,
-           ),
-           label: 'Scan',
-         ),       
+            icon: Image.asset(
+              'assets/scan-image.png',
+              height: 30,
+              width: 30,
+            ),
+            label: 'Scan',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.collections_bookmark),
             label: 'Records',
-          ),          
-       ],       
-     ),
-      body: WillPopScope(onWillPop: _onBackPressed, child: _children[_currentIndex],),
+          ),
+        ],
+      ),
+      body: WillPopScope(
+        onWillPop: _onBackPressed,
+        child: _children[_currentIndex],
+      ),
     );
-  }  
+  }
 }

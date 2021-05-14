@@ -7,7 +7,7 @@ void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: MyApp(),
-  )); 
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -31,8 +31,13 @@ class _MyAppState extends State<MyApp> {
       },
     );
   }
+
   @override
   Widget build(BuildContext context) {
+    final _height = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).padding.top -
+        kToolbarHeight;
+    final _width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,12 +46,12 @@ class _MyAppState extends State<MyApp> {
           Container(
             child: Image(
               image: AssetImage('assets/cstlogo.png'),
-              width: 200,
-              height: 200,
+              width: _width * 0.9,
+              height: _height * 0.3,
               alignment: Alignment.bottomCenter,
             ),
             alignment: Alignment.bottomCenter,
-          ),          
+          ),
           Padding(
             padding: const EdgeInsets.only(top: 20),
             child: Text(
